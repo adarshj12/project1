@@ -1,0 +1,40 @@
+{
+  "name": "ums4",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.3",
+    "bcrypt": "^5.1.0",
+    "bootstrap-toggle": "^2.2.2",
+    "chart.js": "^4.0.1",
+    "connect-mongodb-session": "^3.1.1",
+    "cookie-parser": "~1.4.4",
+    "crypto": "^1.0.1",
+    "currency-converter-lt": "^2.0.0-beta.0",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "easyinvoice": "^2.3.3",
+    "express": "~4.16.1",
+    "express-fileupload": "^1.4.0",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
+    "hbs": "^4.2.0",
+    "html-pdf": "^3.0.1",
+    "http-errors": "~1.6.3",
+    "moment": "^2.29.4",
+    "mongodb": "^4.11.0",
+    "mongoose": "^6.7.2",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.20",
+    "paypal-rest-sdk": "^1.8.1",
+    "pdf-creator-node": "^2.3.5",
+    "razorpay": "^2.8.4",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.6.15",
+    "twilio": "^3.83.3"
+  }
+}

@@ -1,0 +1,136 @@
+<script src="//code.jquery.com/jquery-3.5.1.js" ></script>
+<script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" ></script>
+<script src="//cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js" ></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" ></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" ></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" ></script>
+<script src="//cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js" ></script>
+<script src="//cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js" ></script>
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="//cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
+
+
+
+<section class="content-main">
+
+    <div class="content-header">
+        <h2 class="content-title">Users</h2>
+    </div>
+    <div class="card mb-4">
+        {{!-- <header class="card-header">
+            <div class="row gx-3">
+                <div class="col-lg-4 col-md-6 me-auto">
+                    <input type="text" placeholder="Search..." class="form-control" />
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <select class="form-select">
+                        <option>Status</option>
+                        <option>Active</option>
+                        <option>Disabled</option>
+                        <option>Show all</option>
+                    </select>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <select class="form-select">
+                        <option>Show 20</option>
+                        <option>Show 30</option>
+                        <option>Show 40</option>
+                    </select>
+                </div>
+            </div>
+        </header> --}}
+        <!-- card-header end// -->
+        <div class="card-body">
+            <div class="table-responsive" id="example">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            {{!-- <th>Status</th> --}}
+                            {{!-- <th>Registered Date</th> --}}
+                            <th class="text-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each usersdetails}}
+                        <tr>
+                            <td width="20%">
+                                <a href="#" class="itemside">
+                                    <div class="left">
+                                        <p class="fs-5">{{counter @index}}</p>
+                                    </div>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="info pl-3">
+                                    <h6 class="mb-0 title">{{this.name}}</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="info pl-3">
+                                    <small class="mb-0 title">{{this.email}}</small>
+                                </div>
+                            </td>
+                            {{!-- <td>
+                                {{#if isBlocked}}
+                                <span class="badge rounded-pill alert-danger">inactive</span>
+                                 {{else}}
+                                 <span class="badge rounded-pill alert-success">active</span>
+                                 {{/if}}
+                               
+                            </td> --}}
+                            {{!-- <td>08.07.2020</td> --}}
+                            <td class="text-center">
+                                {{#if isBlocked}}
+                                <a href="/admin/block/{{this._id}}" class="btn btn-sm btn btn-outline-success rounded font-sm mt-15" id="blockUser" onclick="return confirm('Are you sure to delete {{this.name}}')">Activate</a>
+                                {{else}}
+                                <a href="/admin/block/{{this._id}}" class="btn btn-sm btn-outline-danger rounded font-sm mt-15" id="blockUser" onclick="return confirm('Are you sure to delete {{this.name}}')">Deactivate</a>
+                                {{/if}}
+                               {{!-- <div class="form-check form-switch">
+ <a href="/admin/block/{{this._id}}"> <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" /></a>
+  <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+</div> --}}
+                            </td>
+                           
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <!-- table-responsive.// -->
+            </div>
+        </div>
+        <!-- card-body end// -->
+    </div>
+    <!-- card end// -->
+    {{!-- <div class="pagination-area mt-15 mb-50">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-start">
+                <li class="page-item active">
+                    <a class="page-link" href="#">01</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">02</a></li>
+                <li class="page-item"><a class="page-link" href="#">03</a></li>
+                <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                <li class="page-item"><a class="page-link" href="#">16</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div> --}}
+</section>
+<!-- content-main end// -->
+
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script>

@@ -1,0 +1,280 @@
+<section class="content-main">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row gx-5">
+                <aside class="col-lg-3 border-end">
+                    <nav class="nav nav-pills flex-lg-column mb-4">
+
+                        <a class="nav-link" href="account">Dashboard</a>
+                        <a class="nav-link active " href="orders">My Orders</a>
+                        <a class="nav-link" href="address">Address</a>
+                    </nav>
+                </aside>
+                <div class="col-lg-9">
+                    <section>
+                        <div class="cart-main-area ">
+                            <div class="container">
+                                <div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h3 class="cart-page-title">Your ordered items</h3>
+                                            <p id="orderId">{{order._id}}</p>
+                                        </div>
+                                        {{!-- <div class="col text-end"><button class="btn btn-primary "
+                                                onclick="invoice('{{products.product}}')">download invoice</button>
+                                        </div> --}}
+
+                                        <div class="col text-end"><button class="btn btn-primary "
+                                                onclick="invoice('{{products.length}}','{{order.deliveryDetails.address}}','{{order._id}}')">download
+                                                invoice</button></div>
+
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <form action="#">
+                                            <div class="table-content table-responsive cart-table-content">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Image</th>
+                                                            <th>Product Name</th>
+                                                            <th>Unit Price</th>
+                                                            <th>Qty</th>
+                                                            <th>Status</th>
+                                                            <th>Cancel</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        {{#each products}}
+
+                                                        <tr>
+
+                                                            <td class="product-thumbnail" >
+                                                                {{!-- <a href="#"><img class="img-responsive ml-15px"
+                                                                        src="/images/{{this.product._id}}.jpg"
+                                                                        alt="" /></a> --}}
+                                                                <a href="#"><img class="img-responsive ml-9px" id="productId" value="{{this.item}}"
+                                                                        src="/productImages/{{this.product._id}}0.jpg"
+                                                                        alt="" /></a>
+                                                            </td>
+                                                            <td class="product-name"><a href="#"
+                                                                    id="pName{{@index}}">{{this.product.name}}</a></td>
+                                                            <td class="product-price-cart"><span class="amount"
+                                                                    id="pPrice{{@index}}">{{this.product.price}}</span>
+                                                            </td>
+                                                            <td class="product-quantity"><a href="#"
+                                                                    id="pQ{{@index}}">{{this.quantity}}</a></td>
+
+                                                            <td class="product-status">
+                                                                                          
+                                                                <h5><em>{{this.status}}</em></h5>
+                                                                
+                                                             
+
+                                                            
+                                                            </td>
+
+                                                            <td class="product-remove">
+                                                                {{!-- {{#ifEq this.status "placed" "Shipped" }} --}}
+                                                              {{#ifEquals this.status 'placed' }}
+                                                                <a href="" class="btn btn-danger lg-rounded" style="width:70% ;" onclick="cancelOrder('{{this.product._id}}','{{this._id}}')">cancel</a>
+                                                                  {{/ifEquals}}
+                                                                   {{#ifEquals this.status 'Shipped' }}
+                                                                <a href="" class="btn btn-danger" style="width:70% ;" onclick="cancelOrder('{{this.product._id}}','{{this._id}}')">cancel</a>
+                                                                  {{/ifEquals}}
+                                                                {{!-- {{/ifEq}} --}}
+                                                                {{#ifEquals this.status 'Delivered' }}
+                                                                <a href="" id="returnProd" onclick="returnProd('{{this.product._id}}','{{this.quantity}}','{{this._id}}')"><b>Return</b></a>
+                                                                {{/ifEquals}}
+                                                                {{#ifEquals this.status 'canceled'}}
+                                                                {{#ifNotEquals this.paymentMethod "cod"}}
+                                                                <a href=""><b>Refunded</b></a>
+                                                                {{/ifNotEquals}}
+                                                                {{/ifEquals}}
+                                                                {{#ifReq this.status order.paymentMethod 'canceled' 'razorpay' }}
+                                                                 <a href=""><b>Refunded</b></a>
+                                                                {{/ifReq}}
+                                                            </td>
+                                                            {{/each}}
+                                                        </tr>
+
+
+
+
+                                                    </tbody>
+                                                </table>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-sm-12">
+                                                            <div>
+                                                                <h3><em>Order Address</em></h3>
+                                                                {{!-- {{#each order}} --}}
+                                                                <h6 id="address">
+                                                                    {{order.deliveryDetails.address}}
+                                                                </h6>
+                                                                {{!-- {{/each}} --}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {{!-- <a href="home" class="text-center">Continue Shopping</a> --}}
+                                                <div class="empty-text-contant text-center">
+
+
+
+                                                    <a class="empty-cart-btn" href="home">
+                                                        <i class="ion-ios-arrow-left"> </i> Continue shopping
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card body end// -->
+    </div> <!-- card end// -->
+</section> <!-- content-main end// -->
+<footer class="main-footer font-xs">
+
+    <script>
+       
+
+        function cancelOrder(pid,oId) {
+            console.log('called cancel function')
+          //  var orderId = document.getElementById("orderId").innerText;
+          var orderId = oId
+            console.log(orderId)
+           var  proId = pid
+      //      var elem = document.getElementById("productId")
+       //     let proId = elem.getAttribute("value");
+            console.log(proId)
+             
+          $.ajax({
+            url:'/cancel-order',
+            data:{
+                proId,orderId
+            },
+            method:'post',
+            success: (response) => {
+                alert('Product canceled')
+                location.reload()
+            }
+          })
+          
+       
+          
+
+        }
+
+
+        function invoice(length, address, orderNo) {
+            var date = new Date().toDateString().slice(3)
+            //  console.log(length)
+            //  console.log(address)
+            console.log(orderNo)
+            var productArray = []
+            for (var i = 0; i < length; i++) {
+
+                console.log(34)
+                var productName = document.getElementById("pName" + i).innerText;
+                console.log(productName)
+                var productPrice = document.getElementById("pPrice" + i).innerText;
+                console.log(productPrice)
+                var productQuantity = document.getElementById("pQ" + i).innerText;
+                console.log(productQuantity)
+
+                var product = {
+                    "quantity": productQuantity,
+                    "description": productName,
+                    "tax-rate": 6,
+                    "price": productPrice
+                }
+                productArray.push(product)
+
+            }
+            console.log(productArray)
+
+            var data = {
+
+                "customize": {
+
+                },
+                "images": {
+
+                    "logo": "https://public.easyinvoice.cloud/img/logo_en_original.png",
+                },
+
+                "sender": {
+                    "company": "CyberPark inc.",
+                    "address": "Sample Street 123",
+                    "zip": "682004",
+                    "city": "Ernakulam",
+                    "country": "India"
+
+                },
+
+                "client": {
+                    "company": address,
+                    "address": "",
+                    "zip": "",
+                    "city": "",
+                    "country": ""
+
+                },
+                "information": {
+                    // Invoice number
+                    "number": orderNo,
+                    // Invoice data
+                    "date": date,
+                    "due-date": "NA"
+                },
+
+                "products": productArray,
+
+
+                "bottom-notice": "Thank You for choosing our store",
+
+                "settings": {
+                    "currency": "INR",
+
+                },
+
+                "translate": {
+
+                },
+            };
+
+
+            easyinvoice.createInvoice(data, function (result) {
+
+                easyinvoice.download("invoice.pdf")
+            });
+
+        }
+
+
+         function returnProd(pId,pQ,oId){
+            console.log(pId,'bhool bhulaiya',pQ)
+                
+          $.ajax({
+            url:'/return-product',
+            data:{
+                pId,pQ,oId
+            },
+            method:'post',
+            success: (response) => {
+                alert('Product Returned')
+                location.reload()
+            }
+          })
+          
+        }
+    </script>

@@ -1,0 +1,93 @@
+//=======================
+// Developer Variable
+//=======================
+// Font Family
+$montserrat: 'Montserrat',
+sans-serif;
+$open-sans: 'Open Sans',
+sans-serif;
+$raleway: 'Raleway',
+sans-serif;
+//iconfont
+$Ionicons:"Ionicons";
+$body-font: $open-sans;
+$heading-font: $raleway;
+//color 
+$white:#fff;
+$body-color:#474747;
+$heading-color:#212121;
+$theme-color:#ff7004;
+// Transition
+$baseTransition: all 0.3s ease 0s;
+// Socail Color
+$android: #7AC157;
+$apple: #B8B8B8;
+$behance: #1869FF;
+$codepen: #000000;
+$dribbble: #EA4C8A;
+$dropbox: #007EE5;
+$evernote: #78D525;
+$facebook: #4867AA;
+$github: #313131;
+$googleDrive: #1DA462;
+$googleEarth: #4285F4;
+$googleGlass: #EA4335;
+$googleMaps: #5083C3;
+$googlePlay: #01B9FD;
+$googlePlus: #DD5144;
+$google: #4285F4;
+$instagram: #B23A94;
+$css3: #0277BD;
+$html5: #E44D26;
+$javascript: #F9DC3D;
+$python: #0C9DBF;
+$lastfm: #E31B23;
+$linkedin: #007BB6;
+$paypal: #002F86;
+$pinterest: #BD081B;
+$pocket: #EF3E56;
+$polymer: #F87292;
+$rss: #F99C3A;
+$share: #2C9CFF;
+$stackoverflow: #F38024;
+$steam: #15497B;
+$twitter: #1DA1F2;
+$vk: #5181B8;
+$wikipedia: #E9E9E9;
+$windows: #0078D6;
+$s500px: #000000;
+$s8tracks: #122D4B;
+$amazon: #F79B34;
+$blogger: #F06A35;
+$delicious: #0000FE;
+$disqus: #2E9EFE;
+$flattr: #7AB831;
+$flickr: #FE0084;
+$odnoklassniki: #F58220;
+$outlook: #0072C6;
+$playstation: #07418E;
+$reddit: #FF4500;
+$skype: #00A9F0;
+$slideshare: #0077B5;
+$soundcloud: #FE4900;
+$tumblr: #36465D;
+$twitch: #6441A4;
+$vimeo: #1AB7EA;
+$whatsapp: #189D0E;
+$xbox: #107C0F;
+$yahoo: #4101AF;
+$youtube: #FE0000;
+// scss-docs-start social-colors-map
+$social-colors: ( "android": $android, "apple": $apple, "behance": $behance, "codepen": $codepen, "dribbble": $dribbble, "dropbox": $dropbox, "evernote": $evernote, "facebook": $facebook, "github": $github, "google-drive": $googleDrive, "google-earth": $googleEarth, "google-glass": $googleGlass, "google-maps": $googleMaps, "google-play": $googlePlay, "google-plus": $googlePlus, "google": $google, "instagram": $instagram, "css3": $css3, "html5": $html5, "javascript": $javascript, "python": $python, "lastfm": $lastfm, "linkedin": $linkedin, "paypal": $paypal, "pinterest": $pinterest, "pocket": $pocket, "polymer": $polymer, "rss": $rss, "share": $share, "stackoverflow": $stackoverflow, "steam": $steam, "twitter": $twitter, "vk": $vk, "wikipedia": $wikipedia, "windows": $windows, "s500px": $s500px, "s8tracks": $s8tracks, "amazon": $amazon, "blogger": $blogger, "delicious": $delicious, "disqus": $disqus, "flattr": $flattr, "flickr": $flickr, "odnoklassniki": $odnoklassniki, "outlook": $outlook, "playstation": $playstation, "reddit": $reddit, "skype": $skype, "slideshare": $slideshare, "soundcloud": $soundcloud, "tumblr": $tumblr, "twitch": $twitch, "vimeo": $vimeo, "whatsapp": $whatsapp, "xbox": $xbox, "yahoo": $yahoo, "youtube": $youtube, );
+// scss-docs-end theme-colors-map
+// Responsive Variables
+$extraBig-device: "only screen and (min-width: 1600px)";
+$laptop-device: "only screen and (min-width: 1200px) and (max-width: 1599px)";
+$desktop-device: "only screen and (min-width: 992px) and (max-width: 1199px)";
+$tablet-device: "only screen and (min-width: 768px) and (max-width: 991px)";
+$large-mobile: "only screen and (max-width: 767px)";
+$small-mobile: "only screen and (max-width: 575px)";
+$extra-small-mobile: "only screen and (max-width: 479px)";
+//===============================
+// Bootstrap Variables Overright
+//===============================

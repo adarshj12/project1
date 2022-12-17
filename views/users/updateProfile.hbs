@@ -1,0 +1,82 @@
+<section class="content-main">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row gx-5">
+                <aside class="col-lg-3 border-end">
+                    <nav class="nav nav-pills flex-lg-column mb-4">
+                        <a class="nav-link active" href="account">Dashboard</a>
+                        <a class="nav-link " href="orders">My Orders</a>
+                        <a class="nav-link" href="address">Address</a>
+                    </nav>
+                </aside>
+                <div class="col-lg-9 ">
+                    <section>
+                        <form method="" action="" class="needs-validation">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName"> Name</label>
+                                    <input type="text" class="form-control" id="Contactname" name="name"
+                                        value="{{userdetails.name}}" readonly>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="mobilenumber">Contact Number</label>
+                                    <input type="text" class="form-control" id="contactNumber" name="contactNumber"
+                                        value="{{userdetails.mobile}}" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="email">Email </label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        value="{{userdetails.email}}" readonly>
+                                </div>
+                                {{!-- <div class="col-md-6 mb-3">
+                                    <label for="password">Password </label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        value="{{userdetails.password}}" readonly>
+                                </div> --}}
+                            </div> <br>
+                           
+                        </form>
+                      <div class="checkout-account mt-25">
+                            <input class="checkout-toggle w-auto h-auto" type="checkbox" />
+                            <label>Update details?</label>
+                        </div>
+                        <div class="different-address open-toggle mt-30px">
+                             <form method="post" action="/update-user-profile" class="needs-validation">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName"> Name</label>
+                                    <input type="text" class="form-control" id="Contactname" name="name"
+                                      >
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="mobilenumber">Contact Number</label>
+                                    <input type="text" class="form-control" id="contactNumber" name="contactNumber"
+                                        >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="email">Email </label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                       >
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="password">Password </label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        >
+                                </div>
+                            </div> <br>
+                             <button class="btn btn-primary">Update</button>
+                        </form>
+                        </div>
+
+                    </section>
+                </div> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card body end// -->
+    </div> <!-- card end// -->
+</section> <!-- content-main end// -->
+<footer class="main-footer font-xs">

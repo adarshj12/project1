@@ -1,0 +1,74 @@
+<section>
+     <!-- Cart Area Start -->
+    <div class="cart-main-area pt-100px pb-100px">
+        <div class="container">
+            <h3 class="cart-page-title">Your Wishlist</h3>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <form action="#">
+                        <div class="table-content table-responsive cart-table-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Product Name</th>
+                                        <th>Add To Cart</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each pro}}
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                            <a href="#"><img class="img-responsive ml-15px" src="/productImages/{{this._id}}0.jpg" alt="" /></a></td>
+                                        <td class="product-name"><a href="#">{{this.name}}</a></td>
+                                        <td class="product-cart"><a   href="/singleProduct-View?id={{this._id}}"><i class="icon-handbag"></i></a></td>
+                                       
+                                        <td class="product-remove">
+                                            {{!-- <a href="#"><i class="icon-close " style="color: red;"></i></a> --}}
+                                            <a href="/removeFrom-Wish?id={{this._id}}" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" style="color:red ;" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+</svg></a>
+                                        </td>
+                                    </tr>
+                                    
+                                    {{/each}}
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                         
+                                        </td>
+                                        <td class="product-name"><a href="#"></a></td>
+                                        <td class="product-remove">
+                                          
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {{!-- <h3 class="float-right ms-4">TOTAL</h3> --}}
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="cart-shiping-update-wrapper">
+                                    <div class="cart-shiping-update">
+                                        <a href="#">Continue Shopping</a>
+                                    </div>
+                                    {{!-- <div class="cart-clear">
+                                        <a href="/empty-cart?id={{this.product._id}}">Clear Shopping Cart</a>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                       
+                        
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart Area End -->
+</section>

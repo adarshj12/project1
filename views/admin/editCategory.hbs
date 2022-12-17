@@ -1,0 +1,64 @@
+<section class="content-main">
+    <div class="row">
+        <div class="col-9">
+            <div class="content-header">
+                
+                <h2 class="content-title">Edit Category</h2>
+            </div>
+        </div>
+        <form action="/admin/editin-Category/{{category._id}}" method="POST" enctype="multipart/form-data">
+            <div class="col-lg-10">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <label for="product_name" class="form-label">Category Title</label>
+                            <input required name="name" type="text" placeholder="Type here" class="form-control"
+                                id="product_name"  value="{{category.name}}" />
+                        </div>
+                        {{!-- <div class="mb-4">
+                            <label class="form-label">Description</label>
+                            <textarea required name="description" placeholder="Type here" class="form-control" value="{{category.description}}"
+                                rows="8"></textarea>
+                        </div> --}}
+                         <div class="col-lg-10">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4>Media</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-upload">
+                            <img src="adminAsset/imgs/theme/upload.svg"  alt="">
+                            <input name="image" multiple class="form-control" type="file">
+                        </div>
+                    </div>
+                </div> <!-- card end// -->
+            </div>
+                        {{!-- <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label class="form-label"> Price</label>
+                                    <div class="row gx-2">
+                                        <input required name="price" placeholder="$" type="number"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
+                    </div>
+                </div>
+                <!-- card end// -->
+            </div>
+            
+            <div class="col-lg-10">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-md rounded font-sm hover-up">
+                            Publish
+                        </button>
+                        <a href="/admin/view-Category" class="btn btn-light rounded font-md ms-1">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,208 @@
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Order detail</h2>
+            {{#each userDetail}}
+            <p>Details for Order ID: {{this._id}}</p>
+        </div>
+    </div>
+    <div class="card">
+        <header class="card-header">
+            <div class="row align-items-center">
+
+                <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
+                    <span>
+                        <i class="material-icons md-calendar_today"></i> <b>{{this.date}}</b>
+                    </span> <br>
+                    <small class="text-muted" id="orderId">{{this._id}}</small>
+                </div>
+                <div class="col-lg-6 col-md-6 ms-auto text-md-end">
+
+                    <a class="btn btn-primary" href="#">Save</a>
+                    <a class="btn btn-danger" href="/admin/cancel-order?id={{this._id}}">Cancel Order</a>
+                    <a class="btn btn-secondary print ms-2" href="#"><i class="icon material-icons md-print"></i></a>
+                </div>
+            </div>
+        </header> <!-- card-header end// -->
+        <div class="card-body">
+            {{!-- {{#each userDetail}} --}}
+            <div class="row mb-50 mt-20 order-info-wrap">
+                <div class="col-md-4">
+                    <article class="icontext align-items-start">
+                        <span class="icon icon-sm rounded-circle bg-primary-light">
+                            <i class="text-primary material-icons md-person"></i>
+                        </span>
+                        <div class="text">
+                            <h6 class="mb-1">Customer</h6>
+                            <p class="mb-1">
+
+                                {{this.deliveryDetails.CustomerName}} <br>
+                            <p class="__cf_email__" data-cfemail="e2838e879aa2879a838f928e87cc818d8f">
+                                {{this.deliveryDetails.email}}</p> {{this.deliveryDetails.contactNumber}}
+                            </p>
+                            <a href="#">View profile</a>
+                        </div>
+                    </article>
+                </div> <!-- col// -->
+                <div class="col-md-4">
+                    <article class="icontext align-items-start">
+                        <span class="icon icon-sm rounded-circle bg-primary-light">
+                            <i class="text-primary material-icons md-local_shipping"></i>
+                        </span>
+                        <div class="text">
+                            <h6 class="mb-1">Order info</h6>
+                            <p class="mb-1">
+                                Shipping: BLuedart express <br> Pay method: {{this.paymentMethod}} <br> Status:
+                                {{this.status}}
+                            </p>
+                            <a href="#">Download info</a>
+                        </div>
+                    </article>
+                </div> <!-- col// -->
+                <div class="col-md-4">
+                    <article class="icontext align-items-start">
+                        <span class="icon icon-sm rounded-circle bg-primary-light">
+                            <i class="text-primary material-icons md-place"></i>
+                        </span>
+                        <div class="text">
+                            <h6 class="mb-1">Deliver to</h6>
+                            <p class="mb-1">
+                                {{this.deliveryDetails.address}} <br> {{this.deliveryDetails.state}} <br>
+                                {{this.deliveryDetails.pincode}}
+                                <a href="#">View profile</a>
+                        </div>
+                    </article>
+                </div> <!-- col// -->
+            </div> <!-- row // -->
+            {{/each}}
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="40%">Product</th>
+                                    <th width="20%">Unit Price</th>
+                                    <th width="10%">Quantity</th>
+                                    <th width="40%">Status</th>
+                                    {{!-- <th width="20%" class="text-end">Total</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each products}}
+                                <tr>
+                                    <td>
+                                        <a class="itemside" href="#">
+                                            <div class="left">
+                                                {{!-- <img src="/images/{{this.product._id}}.jpg" width="40" height="40"
+                                                    class="img-xs" alt="Item"> --}}
+                                                <img src="/productImages/{{this.product._id}}0.jpg" width="40"
+                                                    height="40" class="img-xs" alt="Item">
+                                            </div>
+                                            <div class="info"> {{this.product.name}} </div>
+                                        </a>
+                                    </td>
+                                    <td> ₹{{this.product.price}} </td>
+                                    <td> {{this.quantity}} </td>
+                                    <td>
+                                        {{!-- <select class="form-select d-inline-block mb-lg-0 mb-15 mw-200 "
+                                            id="{{this.product._id}}"
+                                            onchange="status('{{this}}','{{this.product._id}}','{{this._id}}')">
+                                            <option>Placed</option>
+                                            <option>Shipped</option>
+                                            <option>Delivered</option>
+                                        </select> --}}
+                                        {{#ifEq this.status "placed" "Shipped"}}
+                                        <select class="form-select d-inline-block mb-lg-0 mb-15 mw-200 "
+                                            id="{{this.product._id}}"
+                                            onchange="status('{{this}}','{{this.product._id}}','{{this._id}}')">
+                                            <option value="{{this.status}}" selected>{{this.status}}</option>
+                                            {{#ifNotEquals this.status "Shipped" }}
+                                            <option>placed</option>
+                                            {{/ifNotEquals}}
+                                            <option>Shipped</option>
+                                            <option>Delivered</option>
+
+                                        </select>
+                                        {{/ifEq}}
+                                        {{#ifEquals this.status "canceled"}}
+                                        <h5><b style="color:red ;">canceled</b></h5>
+                                        {{/ifEquals}}
+                                        {{#ifEquals this.status "Delivered"}}
+                                        <h5><b style="color:rgb(3, 169, 0) ;">Delivered</b></h5>
+                                        {{/ifEquals}}
+                                         {{#ifEquals this.status "returned"}}
+                                        <h5><b style="color:rgb(1, 3, 1) ;">Product Returned</b></h5>
+                                        {{/ifEquals}}
+                                    </td>
+                                    {{!-- <td class="text-end"> $99.50 </td> --}}
+                                </tr>
+                                {{/each}}
+
+                                <tr>
+                                    {{#each userDetail}}
+                                    <td colspan="4">
+                                        <article class="float-end">
+
+                                            <dl class="dlist">
+                                                <dt>Grand total:</dt>
+                                                <dd> <b class="h5">₹{{this.totalAmount}}</b> </dd>
+                                            </dl>
+                                            <dl class="dlist">
+                                                <dt class="text-muted">Status:</dt>
+                                                <dd>
+                                                    <span class="badge rounded-pill alert-success text-success">Payment
+                                                        done</span>
+                                                </dd>
+                                            </dl>
+                                        </article>
+                                    </td>
+                                    {{/each}}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- table-responsive// -->
+                </div> <!-- col// -->
+                <div class="col-lg-1"></div>
+                <div class="col-lg-4">
+                    {{#each userDetail}}
+                    <div class="box shadow-sm bg-light">
+                        <h6 class="mb-15">Payment info</h6>
+                        <p>
+                            {{!-- <img src="assets/imgs/card-brands/2.png" class="border" height="20"> --}}
+                            {{this.paymentMethod}} <br>
+
+                        </p>
+                    </div>
+                    {{/each}}
+                    <div class="h-25 pt-4">
+
+                    </div>
+                </div> <!-- col// -->
+            </div>
+        </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+</section> <!-- content-main end// -->
+
+<script>
+    function status(value, id, oId) {
+        let select = document.getElementById(id)
+        // let oId - document.getElementById("orderId")
+        console.log(select.value)
+        console.log(oId)
+        let change = select.value
+        console.log(id)
+        $.ajax({
+            url: ' /admin/change-status',
+            data: {
+                change,
+                id,
+                oId
+            },
+            method: 'post',
+            success: (response) => {
+                location.reload()
+            }
+        })
+    }
+</script>

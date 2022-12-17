@@ -1,0 +1,51 @@
+<section>
+    <!-- login area start -->
+    <div class="login-register-area pt-100px pb-100px ">
+        <div class="container ">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                    <div class="login-register-wrapper">
+                        <div class="login-register-tab-list nav">
+                            <a class="active" data-bs-toggle="tab" href="#lg1">
+                                <h4>login</h4>
+                            </a>
+                        </div>
+                        <div class="tab-content">
+                            <div id="lg1" class="tab-pane active">
+                                <div class="login-form-container">
+                                    <div class="login-register-form">
+                                        <form action="/login" method="post">
+                                            {{#if loginError}}
+                                            <p class="error" id="loginerr"  style="color: red;">{{loginError}}</p>
+                                            {{/if}}
+                                            {{#if userblockedErr}}
+                                            <p class="error" id="blockedUser"   style="color: red;">{{userblockedErr}}</p>
+                                            {{/if}}
+
+                                            <input type="text" name="email"   placeholder="email" />
+                                            <input type="password" name="password"    placeholder="Password" />
+                                            <div class="button-box">
+                                                <div class="login-toggle-btn">
+                                                    <a href="/signup">Create New Account</a>
+                                                </div>
+                                                <div class="login-toggle-btn">
+                                                    <a href="/otp_page">Login With OTP</a>
+                                                </div>
+                                                <button type="submit"><span>Login</span></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- login area end -->
+</section>
+
+ <script
+  type="text/javascript">window.setTimeout("document.getElementById('blockedUser').style.display='none';", 3000); 
+   type="text/javascript">window.setTimeout("document.getElementById('loginerr').style.display='none';", 3000);</script> 

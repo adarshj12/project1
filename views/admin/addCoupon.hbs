@@ -1,0 +1,88 @@
+<section>
+    <div class="container-fluid">
+        <div class="page-head">
+            <h4 class="my-2">Add a Coupon</h4>
+            <form class="form-horizontal " method="post" action="/admin/add-coupon">
+
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <!-- <legend>PRODUCTS</legend> -->
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" name="product" for="product_id">COUPON ID</label>
+                        <div class="col-md-4">
+                            <input id="product_id" name="code" placeholder="COUPON ID" class="form-control input-md"
+                                required="" type="text">
+
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="product_name">COUPON NAME</label>
+                        <div class="col-md-4">
+                            <input id="product_name" name="name" placeholder="COUPON NAME" class="form-control input-md"
+                                required="" type="text">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="product_name">MAX AMOUNT</label>
+                        <div class="col-md-4">
+                            <input id="product_name" name="maxAmount" placeholder="COUPON NAME"
+                                class="form-control input-md" required="" type="number">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="product_name">MIN AMOUNT</label>
+                        <div class="col-md-4">
+                            <input id="product_name" name="minAmount" placeholder="COUPON NAME"
+                                class="form-control input-md" required="" type="number">
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="available_quantity">EXPIRY DATE</label>
+                        <div class="col-md-4">
+                            <input id="available_quantity" name="endingdate" class="form-control input-md" required=""
+                                type="date">
+
+                        </div>
+                    </div>
+
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="product_description">COUPON
+                            PERCENTAGE</label>
+                        <div class="col-md-4">
+                            <input class="form-control" id="description" name="value" required="" type="number">
+                        </div>
+                    </div>
+
+
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="singlebutton">Add Coupon</label>
+                        <div class="col-md-4">
+                            <button id="submit" class="btn btn-dark btn-rounded">Add
+                                Coupon</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,115 @@
+<section class="content-main">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row gx-5">
+                <aside class="col-lg-3 border-end">
+                    <nav class="nav nav-pills flex-lg-column mb-4">
+                        <a class="nav-link " aria-current="" href="account">Dashboard</a>
+                        <a class="nav-link " href="orders">My Orders</a>
+                        <a class="nav-link active" href="address">Address</a>
+                    </nav>
+                </aside>
+                <div class="col-lg-9">
+                    <section class="content-body p-xl-4">
+                     
+                     
+                        <div class="row">
+                             {{#each user1.Address}}
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{this.CustomerName}}</h5>
+                                    
+                                    <p class="card-text">{{this.address}}</p>
+                                       
+                                    <a href="/edit-address?id={{this._id}}" class=" btn-small" style="color:blue ;">Edit</a>
+                                    <a href="/delete-address?id={{this._id}}" class=" btn-small"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                            height="16" fill="currentColor" class="bi bi-trash" style="color:red ;"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                            <path fill-rule="evenodd"
+                                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                        </svg></a>
+                                </div>
+                                 
+                            </div>
+                             {{/each }}
+                        </div>
+                      
+
+                        <div class="checkout-account mt-25">
+                    
+                            <input class="checkout-toggle w-auto h-auto" type="checkbox" />
+                            <label>Ship to a different address?</label>
+                         
+                       
+                     
+                       
+                          
+                        </div>
+                        <div class="different-address open-toggle mt-30px">
+                         
+                        
+                            <h4 class="mb-3">Add Address</h4>
+          <form method="post" action="/add-address"       class="needs-validation">
+            <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="firstName">Customer Name</label>
+                    <input type="text" class="form-control" id="Contactname" name="name" onkeyup="validateCName()">
+                    <span id="name-error" style="color: red;"></span>
+                   
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="mobilenumber">Contact Number</label>
+                    <input type="text" class="form-control" id="contactNumber" name="contactNumber"
+                      onkeyup="validateCMobile()">
+                    <span id="mobile-error" style="color: red;"></span>
+                  </div>
+                </div>
+
+            <div class="mb-3">
+                  <label for="email">Email </label>
+                  <input type="email" class="form-control" id="email" name="email" onkeyup="validateCEmail()">
+                  <span id="email-error" style="color: red;"></span>
+                </div>
+
+            <div class="mb-3">
+                  <label for="address">Address</label>
+                  <input type="text" class="form-control" id="address" name="address" onkeyup="validateAddress()">
+                  <span id="address-error" style="color: red;"></span>
+                </div>
+
+            <div class="row">
+               <div class="col-md-5 mb-3">
+                    <label for="country">Country</label>
+                    <input type="text" class="form-control" id="country" name="country" onkeyup="validateCountry()">
+                    <span id="country-error" style="color: red;"></span>
+                  </div>
+               <div class="col-md-4 mb-3">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" id="state" name="state" onkeyup="validateState()">
+                    <span id="state-error" style="color: red;"></span>
+
+                  </div>
+              <div class="col-md-3 mb-3">
+                    <label for="pin">Pin Code</label>
+                    <input type="text" class="form-control" id="pin" name="pin" onkeyup="validatePin()">
+                    <span id="pin-error" style="color: red;"></span>
+
+                  </div>
+            </div>
+
+
+            <br>
+              <button class="btn btn-secondary btn-sm" type="submit">Save address</button>
+          </form>
+                        </div>
+
+                    </section> <!-- content-body .// -->
+                </div> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card body end// -->
+    </div> <!-- card end// -->
+</section> <!-- content-main end// -->
+<footer class="main-footer font-xs">

@@ -1,0 +1,61 @@
+<section>
+    <section class="content-main">
+        <div class="row">
+            <div class="col-9">
+                <div class="content-header">
+                    <h2 class="content-title">Edit Banner</h2>
+                    
+                </div>
+            </div>
+            {{#each banDet}}
+            <form action="/admin/add-Banner" method="post" enctype="multipart/form-data">
+                <div>
+
+                    <button type="submit" class="btn btn-md rounded font-sm hover-up">Publish</button>
+                </div>
+                <div class="col-lg-6 ">
+                    <div class="card mb-4 mt-5">
+
+                        <div class="card-body">
+                           
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Banner title</label>
+                                    <input type="text" value="{{this.name}}" name="name" placeholder="Type here" class="form-control"
+                                        id="product_name">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Banner description</label>
+                                    <textarea placeholder="Type here" value="{{this.description}}" name="description" class="form-control"
+                                        rows="4"></textarea>
+                                </div>
+
+                        
+                        </div>
+                    </div> <!-- card end// -->
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Media</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-upload">
+                                <img src="/bannerImages/{{this._id}}.jpg" id="imageView" alt="">
+                                <input class="form-control" name="banner" type="file" onchange="viewImage(event)">
+                            </div>
+                        </div>
+                    </div> <!-- card end// -->
+
+                </div>
+            </form>
+            {{/each}}
+        </div>
+    </section> <!-- content-main end// -->
+</section>
+
+<script>
+    function viewImage(event){
+        document.getElementById('imageView').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>

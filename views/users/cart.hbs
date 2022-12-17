@@ -1,0 +1,146 @@
+<section>
+     <!-- Cart Area Start -->
+    <div class="cart-main-area pt-100px pb-100px">
+        <div class="container">
+            <h3 class="cart-page-title">Your cart items</h3>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <form action="#">
+                        <div class="table-content table-responsive cart-table-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Product Name</th>
+                                        <th>Until Price</th>
+                                        <th>Qty</th>
+                                        <th>Subtotal</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each products}}
+                                    <tr>
+                                        <td class="product-thumbnail" >
+                                            {{!-- <a href="#"><img class="img-responsive ml-15px" src="/images/{{this.product._id}}.jpg" alt="" /></a> --}}
+                                             <a href="#"><img class="img-responsive ml-9px" src="/productImages/{{this.product._id}}0.jpg" alt="" /></a>
+                                        </td>
+                                        <td class="product-name"><a href="#">{{this.product.name}}</a></td>
+                                        <td class="product-price-cart"><span class="amount">₹{{this.product.price}}</span></td>
+                                     
+                                        <td class="product-quantity">
+                                            {{!-- <div class="cart-plus-minus"> --}}
+                                               {{!-- <input class="cart-plus-minus-box" type="text" name="qtybutton" value={{this.quantity}} /> --}}
+                                               <button class="cart-item-count mr-3 " style="color:red ;font-weight:bolder; font-size:larger;" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1,{{this.product.stock}})" >-</button>
+                                               <span id="{{this.product._id}}">{{this.quantity}}</span>
+                                               {{#ifGreater this.quantity this.product.stock }}
+                                               <button class="cart-item-count mr-3" style="color: green; font-weight:bolder; font-size:larger;" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1,{{this.product.stock}})">+</button>
+                                                {{/ifGreater}}
+                                                <div> <span id="limitedstock" style="color: red;"></span></div>
+                                            {{!-- </div> --}}
+                                      
+                                        </td>
+                                        <td class="product-subtotal">₹{{#multiply this.product.price this.quantity }} {{/multiply}}</td>
+                                        <td class="product-remove">
+                                            {{!-- <a href="#"><i class="icon-close " style="color: red;"></i></a> --}}
+                                            <a href="/delete-cart-product?id={{this.product._id}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" style="color:red ;" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+</svg></a>
+                                        </td>
+                                    </tr>
+                                    
+                                    {{/each}}
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                          <em><h3>TOTAL</h3></em>
+                                        </td>
+                                        <td class="product-name"><a href="#"></a></td>
+                                        <td class="product-price-cart"><span class="amount"></span></td>
+                                     
+                                        <td class="product-quantity">
+                                           
+                                         
+                                        </td>
+                                        <td class="product-subtotal" id="total"><em><h3>₹{{totalValue}}</h3></em></td>
+                                        <td class="product-remove">
+                                          
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {{!-- <h3 class="float-right ms-4">TOTAL</h3> --}}
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="cart-shiping-update-wrapper">
+                                    <div class="cart-shiping-update">
+                                        <a href="/">Continue Shopping</a>
+                                    </div>
+                                    {{!-- <div class="cart-clear">
+                                        <a href="/empty-cart?id={{this.product._id}}">Clear Shopping Cart</a>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                       <div class="col-lg-4 col-md-12 mt-md-30px">
+                            <div class="grand-totall">
+                                <div class="title-wrap">
+                                    <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
+                                </div>
+                                <h5>Total products <span>{{products.length}}</span></h5>
+                               
+                                <h4 class="grand-totall-title">Grand Total <span>₹{{totalValue}}</span></h4>
+                                <a href="/place-order">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart Area End -->
+</section>
+<script>
+    function changeQuantity(cartId,proId,userId,count,stock){
+        let flag = null
+        let quantity = parseInt(document.getElementById(proId).innerHTML)
+       console.log(quantity,'quantity and stock',stock)
+       var limitedStock = document.getElementById("limitedstock");
+
+       if(quantity==stock-1){
+        console.log('asfbasbfkbakb')
+        limitedStock.innerHTML ="Product Out of Stock";
+         flag=1
+       }
+        count = parseInt(count)
+        console.log(userId)
+        $.ajax({
+        url:'/change-product-quantity',
+        data:{
+            user:userId,
+            cart:cartId,
+            product:proId,
+            count:count,
+            quantity:quantity
+        },
+        method:'post',
+        success:(response)=>{
+            if(response.removeProduct){
+                 alert('item removed from cart')
+                 location.reload()
+            }else{
+                console.log(response)
+                document.getElementById(proId).innerHTML=(quantity+count)
+                document.getElementById('total').innerHTML=response.total
+                location.reload()
+            }
+           
+        }
+    })
+    }
+    
+</script>

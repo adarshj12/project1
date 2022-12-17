@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:35 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Furns-Admin</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js" integrity="sha512-tQYZBKe34uzoeOjY9jr3MX7R/mo7n25vnqbnrkskGr4D6YOoPYSpyafUAzQVjV6xAozAqUFIEFsCO4z8mnVBXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <link rel = "icon" href = "../adminAsset/imgs/logo - admin.jpeg" type = "image/x-icon">
+    {{!-- <link rel="shortcut icon" type="image/x-icon" href="../adminAsset/imgs/theme/favicon.svg"> --}}
+    <!-- Template CSS -->
+    <link href="../adminAsset/css/main.css" rel="stylesheet" type="text/css" />
+    {{!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> --}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.6.0/dt-1.13.1/datatables.min.css"/>
+
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="/admin/admin-dashboard" class="brand-wrap">
+                <img src="../adminAsset/imgs/theme/logo.png" class="logo" alt="admin">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/admin-dashboard"> 
+                    <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-products-list.html"> <i
+                            class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="/admin/view-Products">View Products</a>
+                        {{!-- <a href="/admin/edit-Products">Product grid</a> --}}
+                        {{!-- <a href="/admin/view-Category">Categories</a> --}}
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                    <div class="submenu">
+                        {{!-- <a href="page-sellers-cards.html">Sellers cards</a> --}}
+                        <a href="/admin/view-Users">View Users</a>
+                        {{!-- <a href="page-seller-detail.html">Seller profile</a> --}}
+                    </div>
+                </li>
+                 <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i>
+                        <span class="text">Category</span>
+                    </a>
+                    <div class="submenu">
+                        {{!-- <a href="page-sellers-cards.html">Sellers cards</a> --}}
+                        <a href="/admin/view-AllCategories">View Categories</a>
+                        {{!-- <a href="page-seller-detail.html">Seller profile</a> --}}
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="/admin/view-orders">User Orders</a>
+                    </div>
+                </li>
+                 <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-transactions-1.html"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Coupons</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="/admin/view-coupon">View Coupons</a>
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-transactions-1.html"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="/admin/sales-Report">Monthly</a>
+                   
+                        <a href="/admin/daily-report">Daily</a>
+                    
+                        <a href="/admin/yearly-report">Yearly</a>
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-transactions-1.html"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Offers</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="/admin/viewOffer">view Offers</a>
+                   
+                    </div>
+                </li>
+               
+               
+              
+                
+            </ul>
+            <hr>
+           
+            <br>
+            <br>
+        </nav>
+
+    </aside>
+
+    <main class="main-wrap">
+       
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform">
+                    {{!-- <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i
+                                class="material-icons md-search"></i></button>
+                    </div> --}}
+                    <datalist id="search_terms">
+                        <option value="Products">
+                        <option value="New orders">
+                        <option value="Apple iphone">
+                        <option value="Ahmed Hassan">
+                    </datalist>
+                </form>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
+                        class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" href="#">
+                            {{!-- <i class="material-icons md-notifications animation-shake"></i> --}}
+                            <i class="material-icons md-notifications"></i>
+                            {{!-- <span class="badge rounded-pill">3</span> --}}
+                        </a>
+                    </li>
+               
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i
+                                class="material-icons md-cast"></i></a>
+                    </li>
+                    
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
+                            aria-expanded="false"> <img class="img-xs rounded-circle"
+                                src="../adminAsset/imgs/people/avatar2.jpg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <a class="dropdown-item" href="/admin/banners"><i class="material-icons md-perm_identity"></i>Banners</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account
+                                Settings</a>
+                            <a class="dropdown-item" href="#"><i
+                                    class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help
+                                center</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="/admin/adminLogout"><i
+                                    class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+
+        {{{body}}}
+    </main>
+    <script src="../adminAsset/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="../adminAsset/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="../adminAsset/js/vendors/select2.min.js"></script>
+    <script src="../adminAsset/js/vendors/perfect-scrollbar.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="../adminAsset/js/vendors/jquery.fullscreen.min.js"></script>
+    <script src="../adminAsset/js/vendors/chart.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+    <!-- Main Script -->
+    <script src="../adminAsset/js/main.js" type="text/javascript"></script>
+    <script src="../adminAsset/js/custom-chart.js" type="text/javascript"></script>
+    <script src="../adminAsset/js/custom-chart1.js" type="text/javascript"></script>
+    <script src="../adminAsset/js/custom-chart2.js" type="text/javascript"></script>
+    <script src="../adminAsset/js/custom-chart3.js" type="text/javascript"></script>
+    <script src="/javascripts/datatables.js" type="text/javascript"></script>
+    
+</body>
+
+
+</html>

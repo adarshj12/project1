@@ -1,0 +1,89 @@
+<section class="content-main">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row gx-5">
+                <aside class="col-lg-3 border-end">
+                    <nav class="nav nav-pills flex-lg-column mb-4">
+                        <a class="nav-link " aria-current="" href="account">Dashboard</a>
+                        <a class="nav-link " href="orders">My Orders</a>
+                        <a class="nav-link active" href="address">Address</a>
+                    </nav>
+                </aside>
+                <div class="col-lg-9">
+                    <section class="content-body p-xl-4">
+
+                        <div class="different-address  mt-30px">
+
+                            <h4 class="mb-3">Edit Address</h4>
+
+                        </div>
+                        {{#each address}}
+                        <form method="post" action="/update-user-address" class="needs-validation" >
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                      <input type="text" class="form-control" id="_id" name="_id" onkeyup="validatePin()" value="{{this._id}}" hidden>
+                                    <label for="firstName">Customer Name</label>
+                                    <input type="text" class="form-control" id="Contactname" name="name"
+                                        onkeyup="validateCName()" value="{{this.CustomerName}}">
+                                    <span id="name-error" style="color: red;"></span>
+
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="mobilenumber">Contact Number</label>
+                                    <input type="text" class="form-control" id="contactNumber" name="contactNumber"
+                                        onkeyup="validateCMobile()" value="{{this.contactNumber}}">
+                                    <span id="mobile-error" style="color: red;"></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email">Email </label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    onkeyup="validateCEmail()" value="{{this.email}}">
+                                <span id="email-error" style="color: red;"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control" id="address" name="address"
+                                    onkeyup="validateAddress()" value="{{this.address}}">
+                                <span id="address-error" style="color: red;"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5 mb-3">
+                                    <label for="country">Country</label>
+                                    <input type="text" class="form-control" id="country" name="country"
+                                        onkeyup="validateCountry()" value="{{this.state}}">
+                                    <span id="country-error" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="state">State</label>
+                                    <input type="text" class="form-control" id="state" name="state"
+                                        onkeyup="validateState()" value="{{this.country}}">
+                                    <span id="state-error" style="color: red;"></span>
+
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="pin">Pin Code</label>
+                                    <input type="text" class="form-control" id="pin" name="pin" onkeyup="validatePin()" value="{{this.pincode}}">
+                                    <span id="pin-error" style="color: red;"></span>
+                                   
+                                    
+                                </div>
+                               
+                            </div>
+
+
+                            <br>
+                            <button class="btn btn-secondary btn-sm" type="submit">Save address</button>
+                        </form>
+                           {{/each}}   
+                    </section> <!-- content-body .// -->
+                </div> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card body end// -->
+    </div> <!-- card end// -->
+</section> <!-- content-main end// -->
+<footer class="main-footer font-xs">

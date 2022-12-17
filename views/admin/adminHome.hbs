@@ -1,0 +1,223 @@
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Dashboard </h2>
+            <p>Whole data about your business here</p>
+        </div>
+        <div>
+            <a href="/admin/get-Report" class="btn btn-primary"><i class="text-muted material-icons md-post_add"></i>Create report</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card card-body mb-4">
+                <article class="icontext">
+                    <span class="icon icon-sm rounded-circle bg-primary-light"><i
+                            class="text-primary material-icons md-monetization_on"></i></span>
+                    <div class="text">
+                        <h6 class="mb-1 card-title">Revenue</h6>
+                        <span>₹{{rev}}</span>
+                        <span class="text-sm">
+                            Shipping fees are not included
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-body mb-4">
+                <article class="icontext">
+                    <span class="icon icon-sm rounded-circle bg-success-light"><i
+                            class="text-success material-icons md-local_shipping"></i></span>
+                    <div class="text">
+                        <h6 class="mb-1 card-title">Orders</h6> <span>{{userDetail.length}}</span>
+                        <span class="text-sm">
+                            Excluding orders in transit
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-body mb-4">
+                <article class="icontext">
+                    <span class="icon icon-sm rounded-circle bg-warning-light"><i
+                            class="text-warning material-icons md-qr_code"></i></span>
+                    <div class="text">
+                        <h6 class="mb-1 card-title">Products</h6> <span>{{pro.length}}</span>
+                        <span class="text-sm">
+                            In {{cat.length}} Categories
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-body mb-4">
+                <article class="icontext">
+                    <span class="icon icon-sm rounded-circle bg-info-light"><i
+                            class="text-info material-icons md-shopping_basket"></i></span>
+                    <div class="text">
+                        {{#switch Month}}
+                        <h6 class="mb-1 card-title">Monthly Earning for {{#case '12'}} December {{/case}} 
+                                                                        {{#case '11'}} November {{/case}}
+                                                                        {{#case '10'}} October {{/case}}
+                                                                        {{#case '9'}} September {{/case}}
+                                                                        {{#case '8'}} August {{/case}}
+                                                                        {{#case '7'}} July {{/case}}
+                                                                        {{#case '6'}} June {{/case}}
+                                                                        {{#case '5'}} May {{/case}}
+                                                                        {{#case '4'}} April {{/case}}
+                                                                        {{#case '3'}} March {{/case}}
+                                                                        {{#case '2'}} February {{/case}}
+                                                                        {{#case '1'}} January {{/case}}
+                        </h6>
+                        {{/switch}} 
+                        <span>₹{{revMon}}</span>
+                        <span class="text-sm">
+                            Based in your local time.
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-xl-8 col-lg-12">
+            <div class="card mb-4" >
+                <header class="card-header">
+                    <h4 class="card-title">Daily Revenue </h4>
+                    <div class="row align-items-center">
+
+                    </div>
+                </header>
+                <div class="card-body" >
+                    <div class="table-responsive">
+                        <div class="table-responsive"  >
+                            <div>
+                                {{!-- <canvas id="myChart"></canvas></div> --}}
+                                <canvas id="myChart" ></canvas>
+                        </div>
+                    </div>
+                </div> <!-- table-responsive end// -->
+            </div>
+            
+        </div>
+        
+        
+    </div>
+    
+    
+    <div class="col-xl-4 col-lg-12">
+        <div class="card mb-4">
+            <article class="card-body">
+                <h5 class="card-title">Orders per Day</h5>
+                {{!-- <canvas id="myChart3" height="217"></canvas> --}}
+                 <canvas id="myChart657" height="390"></canvas>
+            </article>
+        </div>
+        
+       
+    </div>
+
+     <div class="row" >
+        <div class="col-xl-8 col-lg-12">
+            <div class="card mb-4" >
+                <header class="card-header">
+                    <h4 class="card-title">Site Visits Per Day </h4>
+                    <div class="row align-items-center">
+
+                    </div>
+                </header>
+                <div class="card-body" >
+                    <div class="table-responsive">
+                        <div class="table-responsive"  >
+                            <div>
+                                {{!-- <canvas id="myChart"></canvas></div> --}}
+                                <canvas id="myChart4" ></canvas>
+                        </div>
+                    </div>
+                </div> <!-- table-responsive end// -->
+            </div>
+            
+        </div>
+        
+        
+    </div>
+    
+    
+    <div class="col-xl-4 col-lg-12">
+        <div class="card mb-4">
+            <article class="card-body">
+                <h5 class="card-title">Payment Distribution</h5>
+                {{!-- <canvas id="myChart3" height="217"></canvas> --}}
+                 <canvas id="myChart9" height="217"></canvas>
+            </article>
+        </div>
+        
+       
+    </div>
+  
+   
+</section> <!-- content-main end// -->
+
+<script>
+         var elem = document.getElementById("gr")
+         let graph = elem.getAttribute("value");
+       console.log(graph[length-1])
+
+
+
+    const ctx = document.getElementById('myChart11');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Processors', 'Graphic Cards', 'Mouse', 'Motherboards', 'Memory', 'Monitors'],
+            datasets: [{
+                label: 'Purchase by Category',
+                data: [12, 25, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    var ctx1 = document.getElementById('myChart3').getContext('2d');
+        var chart = new Chart(ctx1, {
+            // The type of chart we want to create
+            type: 'line',
+            
+            // The data for our dataset
+        //    {{#each dailyG}}
+            data: { 
+                labels:[{{#each dailyG}} '{{this._id}}' {{/each}} ] ,
+                
+                datasets: [{
+                        label: ' Daily Sales Graph',
+                        tension: 0.3,
+                      //  fill: true,
+                        backgroundColor: 'rgba(44, 120, 220, 0.2)',
+                        borderColor: 'rgba(44, 120, 220)',
+                        data: [{{#each dailyG}} {{this.totalAmount}} {{/each}}  ] 
+                    },
+                ]
+            },
+           // {{/each}}
+            options: {
+                plugins: {
+                legend: {
+                    labels: {
+                    usePointStyle: true,
+                    },
+                }
+                }
+            }
+        });
+</script>

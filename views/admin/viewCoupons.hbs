@@ -1,0 +1,121 @@
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Coupons</h2>
+            <!-- <p>Lorem ipsum dolor sit amet.</p> -->
+        </div>
+        <div>
+            <!-- <a href="#" class="btn btn-light rounded font-md">Export</a>
+            <a href="#" class="btn btn-light rounded  font-md">Import</a> -->
+            <a href="/admin/add-coupon" class="btn btn-primary btn-sm rounded">Add coupon</a>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <header class="card-header">
+            <div class="row align-items-center">
+              
+            </div>
+        </header> <!-- card-header end// -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" -->
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Coupon Code</th>
+                            <th>Coupon Name</th>
+                            <th>Max. Amount</th>
+                            <th>Min. Amount</th>
+                           
+                            <th>Expires on</th>
+                            <th>Discount %</th>
+                            {{!-- <th class="text-end">Action</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {{#each coupons}}
+
+                                <tr>
+                                    <td >
+                                        <a href="#" class="itemside">
+                                            <div class="left">
+                                                <p class="fs-5">
+                                                  {{this.code}}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td >
+                                        <a href="#" class="itemside">
+                                            
+                                            <div class="info pl-3 ">
+
+                                                <h6 class="mb-0 title">
+                                                    {{this.name}}
+                                                </h6>
+                                            </div>
+                                        </a>
+                                    </td>
+
+                                    {{!-- <td>
+                                        <div class="info">
+                                            <p class="mb-0 title">
+                                               {{this.category}}
+                                            </p>
+                                        </div>
+                                    </td> --}}
+
+
+                                    {{!-- <td >
+                                        <div class="info">
+                                            <p class="mb-0 title">
+                                                {{this.description}}
+                                            </p>
+                                        </div>
+                                    </td> --}}
+
+                                    <td>
+                                        <div class="info">
+                                            <p class="mb-0 title">
+                                               ₹{{this.maxAmount}}
+                                            </p>
+                                        </div>
+                                    </td>
+
+                                    <td >{{this.minAmount}}</td>
+                                     <td >{{this.endingdate}}</td>
+                                    <td >
+                                        <a href=""
+                                            class="rounded font-sm mt-15">{{this.value}}</a>
+                                       
+                                    </td>
+                                     <td >
+                                        <a href=""
+                                            class="rounded font-sm mt-15"></a>
+                                       
+                                    </td>
+                                </tr>
+
+                            {{/each}}
+                    </tbody>
+                </table>
+              
+                <!-- table-responsive.// -->
+            </div>
+
+        </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+    <div class="pagination-area mt-30 mb-50">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-start">
+                <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                <li class="page-item"><a class="page-link" href="#">02</a></li>
+                <li class="page-item"><a class="page-link" href="#">03</a></li>
+                <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                <li class="page-item"><a class="page-link" href="#">16</a></li>
+                <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</section> <!-- content-main end// -->
