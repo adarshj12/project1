@@ -1,5 +1,5 @@
 const db = require('../config/connection')
-require('dotenv').config()
+// require('dotenv').config()
 const userHelpers = require('../helpers/user-helpers');
 const productHelpers = require('../helpers/userdetails-helpers');
 const cartHelpers = require('../helpers/cart-helpers')
@@ -9,10 +9,10 @@ const { ObjectId } = require('mongodb');
 const collection = require('../config/collections')
 const userdetailsHelpers = require('../helpers/userdetails-helpers');
 const orderHelpers = require('../helpers/order-helpers')
-const accountSid = process.env.accoundSid;
-const authToken = process.env.authToken;
-const sId = process.env.serviceId
-const client = require('twilio')(accountSid, authToken);
+// const accountSid = process.env.accoundSid;
+// const authToken = process.env.authToken;
+// const sId = process.env.serviceId
+// const client = require('twilio')(accountSid, authToken);
 var easyinvoice = require('easyinvoice');
 const { response } = require('express');
 
