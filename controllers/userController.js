@@ -1,3 +1,5 @@
+const db = require('../config/connection')
+// var env = require('dotenv').config()
 const userHelpers = require('../helpers/user-helpers');
 const productHelpers = require('../helpers/userdetails-helpers');
 const cartHelpers = require('../helpers/cart-helpers')
@@ -7,9 +9,8 @@ const { ObjectId } = require('mongodb');
 const collection = require('../config/collections')
 const userdetailsHelpers = require('../helpers/userdetails-helpers');
 const orderHelpers = require('../helpers/order-helpers')
-const db = require('../config/connection')
-require('dotenv').config()
-const client = require("twilio")(process.env.accoundSid, process.env.authToken);
+
+// const client = require("twilio")(process.env.accoundSid, process.env.authToken);
 var easyinvoice = require('easyinvoice');
 const { response } = require('express');
 
@@ -135,51 +136,51 @@ module.exports = {
     //       res.status(200).send(data)
     //     })
     // }),
-    otpLogin: async (req, res) => {
-        let userData = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile: Number });
-        if (userData) {
-            client
-                .verify
-                .services(process.env.serviceId)
-                .verifications
-                .create({
-                    to: `+${req.query.phoneNumber}`,
-                    channel: req.query.channel,
-                })
-                .then((data) => {
-                    console.log(data);
-                    res.status(200).send(data)
-                })
-        } else {
-            res.redirect('/otp_page')
-        }
-    },
-    otpVerify: (req, res) => {
+    // otpLogin: async (req, res) => {
+    //     let userData = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile: Number });
+    //     if (userData) {
+    //         client
+    //             .verify
+    //             .services(process.env.serviceId)
+    //             .verifications
+    //             .create({
+    //                 to: `+${req.query.phoneNumber}`,
+    //                 channel: req.query.channel,
+    //             })
+    //             .then((data) => {
+    //                 console.log(data);
+    //                 res.status(200).send(data)
+    //             })
+    //     } else {
+    //         res.redirect('/otp_page')
+    //     }
+    // },
+    // otpVerify: (req, res) => {
 
-        client
-            .verify
-            .services(process.env.serviceId)
-            .verificationChecks
-            .create({
-                to: `+${req.query.phoneNumber}`,
-                code: req.query.code
-            })
-            .then(async (data) => {
-                if (data.valid) {
-                    let Number = data.to.slice(3);
-                    let userData = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile: Number });
-                    if (userData.mobile == Number) {
-                        req.session.user = userData;
-                        res.send({ value: 'success' })
-                    } else {
-                        res.send({ value: 'failed' })
-                    }
+    //     client
+    //         .verify
+    //         .services(process.env.serviceId)
+    //         .verificationChecks
+    //         .create({
+    //             to: `+${req.query.phoneNumber}`,
+    //             code: req.query.code
+    //         })
+    //         .then(async (data) => {
+    //             if (data.valid) {
+    //                 let Number = data.to.slice(3);
+    //                 let userData = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile: Number });
+    //                 if (userData.mobile == Number) {
+    //                     req.session.user = userData;
+    //                     res.send({ value: 'success' })
+    //                 } else {
+    //                     res.send({ value: 'failed' })
+    //                 }
 
-                } else {
-                    res.send({ value: 'failed' })
-                }
-            })
-    },
+    //             } else {
+    //                 res.send({ value: 'failed' })
+    //             }
+    //         })
+    // },
     logout: (req, res) => {
         console.log('1');
         // res.header("Cache-Control", "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0,Pragma, no-cache,Expires, -1"
