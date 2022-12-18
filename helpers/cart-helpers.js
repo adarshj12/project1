@@ -425,8 +425,10 @@ module.exports = {
                     "payment_method": "paypal"
                 },
                 "redirect_urls": {
-                    return_url: "http://localhost:3000/order-success",
-                    cancel_url: "http://localhost:3000/cancel-payment"
+                    // return_url: "http://localhost:3000/order-success",
+                    return_url: "https://furns.store/order-success",
+                    // cancel_url: "http://localhost:3000/cancel-payment"
+                    cancel_url: "http://furns.store/cancel-payment"
                 },
                 "transactions": [
                     {

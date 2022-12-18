@@ -1,5 +1,5 @@
 const db = require('../config/connection')
-// var env = require('dotenv').config()
+require('dotenv').config()
 const userHelpers = require('../helpers/user-helpers');
 const productHelpers = require('../helpers/userdetails-helpers');
 const cartHelpers = require('../helpers/cart-helpers')
@@ -9,8 +9,10 @@ const { ObjectId } = require('mongodb');
 const collection = require('../config/collections')
 const userdetailsHelpers = require('../helpers/userdetails-helpers');
 const orderHelpers = require('../helpers/order-helpers')
-
-// const client = require("twilio")(process.env.accoundSid, process.env.authToken);
+const accountSid = process.env.accoundSid;
+const authToken = process.env.authToken;
+const sId = process.env.serviceId
+const client = require('twilio')(accountSid, authToken);
 var easyinvoice = require('easyinvoice');
 const { response } = require('express');
 
@@ -31,10 +33,8 @@ module.exports = {
 
 
         let newDate = new Date().getDate()
-        //  let newDate = parseInt(8)
         let visitors = await db.get().collection(collection.VISITOR_COLLECTION).findOne({ name: 'localhost' + newDate })
-        // console.log(visitors);
-
+      
         if (visitors == null || visitors.date != newDate) {
             new db.get().collection(collection.VISITOR_COLLECTION).insertOne({
                 name: 'localhost' + newDate,
@@ -137,11 +137,12 @@ module.exports = {
     //     })
     // }),
     // otpLogin: async (req, res) => {
+      
     //     let userData = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile: Number });
     //     if (userData) {
     //         client
     //             .verify
-    //             .services(process.env.serviceId)
+    //             .services(sId)
     //             .verifications
     //             .create({
     //                 to: `+${req.query.phoneNumber}`,
@@ -159,7 +160,7 @@ module.exports = {
 
     //     client
     //         .verify
-    //         .services(process.env.serviceId)
+    //         .services(sId)
     //         .verificationChecks
     //         .create({
     //             to: `+${req.query.phoneNumber}`,
