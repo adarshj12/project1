@@ -1,5 +1,7 @@
 var db = require('../config/connection')
 var collection = require('../config/collections')
+const { ObjectId } = require('mongodb')
+const { response } = require('express')
 // const { response } = require('../app')
 var objectId = require('mongodb').ObjectId
 module.exports = {
@@ -194,7 +196,7 @@ module.exports = {
 
     let offerPrice=(offerPercentage/100)*product.price;
     let totalPrice=product.price-offerPrice;
-
+    totalPrice = Math.round(totalPrice)
     return new Promise((resolve,reject)=>{
       db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:product._id,category:category},
         {
@@ -207,6 +209,32 @@ module.exports = {
         }).then(()=>{
           resolve()
         })
+    })
+},
+removeCategoryOffer:(catId)=>{
+    return new Promise(async(resolve,reject)=>{
+        let catDet = await db.get().collection(collection.CATEGORY_COLLECTION).findOne({_id:objectId(catId)})
+        let category = catDet.name
+        console.log('this is cat details',catDet)
+          db.get().collection(collection.CATEGORY_COLLECTION).updateOne({_id:objectId(catId)},{
+            $unset:{
+                    ExpiryDate:"",
+                    offerApply:"",
+                    offer:""
+                }
+        }).then((response)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).updateMany({category:category},{
+                $unset:{
+                    categoryDiscount: "",
+                    discountPercentage: "",
+                    originalPrice:""
+                }
+            }).then((respo)=>{
+                resolve(respo)
+            })
+        })
+        
+        
     })
 }
    

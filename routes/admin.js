@@ -149,12 +149,14 @@ router.get('/editBanner', adminController.editbanner)
 
 //--------------------------------SALES Report-----------------------------------------
 
+// router.get('/get-Report',adminController.salesReport)
 router.get('/get-Report',adminController.salesReport)
-
 
 router.post('/sales-rep-mon',adminController.monthlySalesReport)
 
 router.post('/sales-rep-daily',adminController.dailySalesReport)
+
+router.post('/sales-rep-yearly',adminController.yearlySalesReport)
 
 
 
@@ -203,6 +205,8 @@ router.get('/add-coupon',adminController.addcoupon)
 router.get('/viewOffer',adminController.viewOffer)
 
 router.post('/admin-addCategoryOffer',adminController.addCategoryOffer)
+
+router.get('/delete-offer/:id',adminController.removeCategoryOffer)
 
 //------------------------------------offer------------------------------
 

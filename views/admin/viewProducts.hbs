@@ -70,7 +70,7 @@
                                     {{!-- <td><template class="__cf_email__" data-cfemail="aec3cfdcd8c7c0eecbd6cfc3dec2cb80cdc1c3">[email&#160;protected]</template></td> --}}
                                      <td>{{this.description}}</td>
                                     <td>₹{{this.price}}</td>
-                                    <td><span ><s>₹{{this.originalPrice}}</s></span></td>
+                                    <td><span >{{#ifNotEquals this.originalPrice null}}<s>₹{{this.originalPrice}}</s>{{/ifNotEquals}}</span></td>
                                     <td>{{this.date}}</td>
                                      <td class="text-end">
                                         <a href="/admin/editProduct?id={{this._id}}"
@@ -88,26 +88,11 @@
 
         </div> <!-- card-body end// -->
     </div> <!-- card end// -->
-    <div class="pagination-area mt-30 mb-50">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-start">
-                <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                <li class="page-item"><a class="page-link" href="#">02</a></li>
-                <li class="page-item"><a class="page-link" href="#">03</a></li>
-                <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">16</a></li>
-                <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+   
 </section> <!-- content-main end// -->
 
  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script>
     
-$(document).ready( function () {
-    $('#myTable').DataTable();
-} );
 
 </script>

@@ -1,31 +1,66 @@
 <section>
+    <!-- OffCanvas Cart Start -->
+    <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
+        <div class="inner">
+            <div class="head">
+                <span class="title">Cart</span>
+                <button class="offcanvas-close">×</button>
+            </div>
+            <div class="body customScroll">
+                <ul class="minicart-product-list">
+                 
+                   {{#each cartProd}}
+                    <li>
+                        <a href="single-product.html" class="image"><img src="/productImages/{{this.product._id}}0.jpg"
+                                alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="single-product.html" class="title">{{this.product.name}}</a>
+                            <span class="quantity-price">{{this.quantity}} x <span class="amount">₹{{this.product.price}}</span></span>
+                            <a href="#" class="remove">×</a>
+                        </div>
+                    </li>
+                    
+                     
+                    
+                     {{/each}}
+                     
+                </ul>
+            </div>
+            <div class="foot">
+                <div class="sub-total">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-start">Total :</td>
+                                <td class="text-end theme-color">₹{{totalValue}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 
+                <div class="buttons">
+                    {{#if user}}
+                    <a href="/view-cart" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                    {{#ifNotEquals cartCount 0}}
+                    <a href="/place-order" class="btn btn-outline-dark current-btn">checkout</a>
+                    {{/ifNotEquals}}
+                    {{else}}
+                     <a href="/login" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                     <a href="/login" class="btn btn-outline-dark current-btn">checkout</a>
+                     {{/if}}
+                    
+                </div>
+             
+            </div>
+        </div>
+    </div>
+    <!-- OffCanvas Cart End -->
     <div class="shop-category-area pb-100px pt-70px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
                     <!-- Shop Top Area Start -->
-                    <div class="shop-top-bar d-flex">
-                        <!-- Left Side start -->
-                        <p>There Are 17 Products.</p>
-                        <!-- Left Side End -->
-                        <!-- Right Side Start -->
-                        <div class="select-shoing-wrap d-flex align-items-center">
-                            <div class="shot-product">
-                                <p>Sort By:</p>
-                            </div>
-                            <div class="shop-select">
-                                <select class="shop-sort">
-                                    <option data-display="Relevance">Relevance</option>
-                                    <option value="1"> Name, A to Z</option>
-                                    <option value="2"> Name, Z to A</option>
-                                    <option value="3"> Price, low to high</option>
-                                    <option value="4"> Price, high to low</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <!-- Right Side End -->
-                    </div>
+                   
                     <!-- Shop Top Area End -->
 
                     <!-- Shop Bottom Area Start -->
@@ -48,41 +83,25 @@
                                             <span class="new">New</span>
                                         </span>
                                         <div class="actions">
+                                            {{#if user}}
                                             <a href="" class="action wishlist " title="Wishlist"><i
-                                                    class="icon-heart" onclick="addToWish('{{this._id}}')" ></i></a>
-                                            <a href="#" class="action quickview" data-link-action="quickview"
-                                                title="Quick view" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal"><i class="icon-size-fullscreen"></i></a>
-                                            <a href="compare.html" class="action compare" title="Compare"><i
-                                                    class="icon-refresh"></i></a>
+                                                    class="icon-heart" onclick="addToWish('{{this._id}}')" ></i></a>{{/if}}
+                                            
                                         </div>
                                         {{!-- <button title="Add To Cart" class=" add-to-cart">Add To Cart</button> --}}
                                     </div>
                                     <div class="content">
                                         <h5 class="title"><a href="/singleProduct-View?id={{this._id}}">{{this.name}}</a></h5>
-                                        <span class="price">
-                                             <span class="new"><s>₹{{this.originalPrice}}</s></span>
-                                            <span class="new" style="color: black;"><h3>₹{{this.price}}</h3></span>
-                                        </span>
+                                         <div>
+                                            {{#ifNotEquals this.originalPrice null}} <span class="new"><s>₹{{this.originalPrice}}</s></span>{{/ifNotEquals}}</div>
+                                        <h2 class="price" style="color: black;">₹{{this.price}}</h2>
+                                     
                                     </div>
                                 </div>
                             </div>
                           {{/each}} 
                         </div>
-                        <!--  Pagination Area Start -->
-                        <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-30px" data-aos="fade-up">
-                            <ul>
-                                <li>
-                                    <a class="prev" href="#"><i class="ion-ios-arrow-left"></i></a>
-                                </li>
-                                <li><a class="active" href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li>
-                                    <a class="next" href="#"><i class="ion-ios-arrow-right"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!--  Pagination Area End -->
+                        
                     </div>
                     <!-- Shop Bottom Area End -->
                 </div>
@@ -102,21 +121,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- Sidebar single item -->
-                        <div class="sidebar-widget-group">
-                            <h3 class="sidebar-title">Filter By</h3>
-                            <div class="sidebar-widget">
-                                <h4 class="pro-sidebar-title">Price</h4>
-                                <div class="price-filter">
-                                    <div class="price-slider-amount">
-                                        <input type="text" id="amount" class="p-0 h-auto lh-1" name="price"
-                                            placeholder="Add Your Price" />
-                                    </div>
-                                    <div id="slider-range"></div>
-                                </div>
-                            </div>
-                  
-                        <!-- Sidebar single item -->
+                       
                     </div>
                 </div>
             </div>
@@ -139,5 +144,10 @@
            }
         }
     })
-}
+}  
+  //var price = document.getElementById("price").innerText
+  //console.log("price is ",price)
+  //var newPrice = Math.round(price)
+  //console.log("rounded is ",newPrice)
+  //document.getElementById("price").innerText=newPrice
 </script>

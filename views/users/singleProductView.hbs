@@ -1,4 +1,60 @@
 <section>
+     <!-- OffCanvas Cart Start -->
+    <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
+        <div class="inner">
+            <div class="head">
+                <span class="title">Cart</span>
+                <button class="offcanvas-close">×</button>
+            </div>
+            <div class="body customScroll">
+                <ul class="minicart-product-list">
+                 
+                   {{#each cartProd}}
+                    <li>
+                        <a href="single-product.html" class="image"><img src="/productImages/{{this.product._id}}0.jpg"
+                                alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="single-product.html" class="title">{{this.product.name}}</a>
+                            <span class="quantity-price">{{this.quantity}} x <span class="amount">₹{{this.product.price}}</span></span>
+                            <a href="#" class="remove">×</a>
+                        </div>
+                    </li>
+                    
+                     
+                    
+                     {{/each}}
+                     
+                </ul>
+            </div>
+            <div class="foot">
+                <div class="sub-total">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-start">Total :</td>
+                                <td class="text-end theme-color">₹{{totalValue}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 
+                <div class="buttons">
+                    {{#if user}}
+                    <a href="/view-cart" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                    {{#ifNotEquals cartCount 0}}
+                    <a href="/place-order" class="btn btn-outline-dark current-btn">checkout</a>
+                    {{/ifNotEquals}}
+                    {{else}}
+                     <a href="/login" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                     <a href="/login" class="btn btn-outline-dark current-btn">checkout</a>
+                     {{/if}}
+                    
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <!-- OffCanvas Cart End -->
     <!-- Product Details Area Start -->
     <div class="product-details-area pt-100px pb-100px">
         <div class="container">
@@ -62,7 +118,7 @@
                             <div>
                                 <ul>
                                     <li class="old-price not-cut">
-                                        <h6><s>₹{{product.originalPrice}}</s></h6>
+                                        <div>{{#ifNotEquals this.originalPrice null}} <span class="new"><s>₹{{this.originalPrice}}</s></span>{{/ifNotEquals}}</div>
                                     </li>
                                 </ul>
                             </div>
@@ -74,11 +130,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <p class="quickview-para"></p>{{product.description}}</p>
+                       
                         <div class="pro-details-quality">
 
                             <div class="pro-details-cart">
-                               
+                               {{#if user}}
                                 {{#ifEquals max '1' }}
                                 <h3 style="color: red;">Product Out of Stock</h3>
                                 {{/ifEquals}}
@@ -86,38 +142,18 @@
                                 <button id="addToCart" onclick="addTocart('{{product._id}}')"
                                     class="add-cart btn btn-primary btn-hover-primary ml-4"> Add To Cart</button>
                                 {{/ifNotEquals}}
+                                {{else}}
+                                 <button id="gotoLogin" onclick="gotoLogin()"
+                                    class="add-cart btn btn-primary btn-hover-primary ml-4"> Add To Cart</button>
+                                {{/if}}
                             </div>
 
 
                         </div>
                         <div> <b id="limitedstock" style="color: red;"></b></div>
-                        <div class="pro-details-wish-com">
-                            <div class="pro-details-wishlist">
-                                <a href="wishlist.html"><i class="ion-android-favorite-outline"></i>Add to
-                                    wishlist</a>
-                            </div>
-
-                        </div>
-                        <div class="pro-details-social-info">
-                            <span>Share</span>
-                            <div class="social-info">
-                                <ul class="d-flex">
-                                    <li>
-                                        <a href="#"><i class="ion-social-facebook"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ion-social-twitter"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ion-social-google"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ion-social-instagram"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="pro-details-policy">
+                       
+                       
+                        {{!-- <div class="pro-details-policy">
                             <ul>
                                 <li><img src="assets/images/icons/policy.png" alt="" /><span>Security Policy </span>
                                 </li>
@@ -126,7 +162,7 @@
                                 <li><img src="assets/images/icons/policy-3.png" alt="" /><span>Return Policy </span>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -137,7 +173,7 @@
         <div class="container">
             <div class="description-review-wrapper">
                 <div class="description-review-topbar nav">
-                    <a data-bs-toggle="tab" href="#des-details1">Description</a>
+                 
                     <a class="active" data-bs-toggle="tab" href="#des-details2">Product Details</a>
                     {{!-- <a data-bs-toggle="tab" href="#des-details3">Reviews (2)</a> --}}
                 </div>
@@ -145,21 +181,14 @@
                     <div id="des-details2" class="tab-pane active">
                         <div class="product-anotherinfo-wrapper">
                             <ul>
-                                {{!-- <li><span>Weight</span> 400 g</li>
-                                <li><span>Dimensions</span>10 x 10 x 15 cm</li>
-                                <li><span>Materials</span> 60% cotton, 40% polyester</li>
-                                <li><span>Other Info</span> American heirloom jean shorts pug seitan letterpress</li>
-                                --}}
                                 {{product.description}}
                             </ul>
                         </div>
                     </div>
                     <div id="des-details1" class="tab-pane">
                         <div class="product-description-wrapper">
-                            <p{{product.description}} </p>
-                                <p>
-                                    {{product.description}}
-                                </p>
+                            {{!-- <p{{product.description}}> </p> --}}
+                              
                         </div>
                     </div>
 
@@ -168,378 +197,6 @@
         </div>
     </div>
     <!-- product details description area end -->
-
-    <!-- New Product Start -->
-    <div class="section pb-100px" data-aos="fade-up" data-aos-delay="200">
-        <div class="container">
-            <!-- section title start -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title text-start mb-11">
-                        <h2 class="title">You Might Also Like</h2>
-                    </div>
-                </div>
-            </div>
-            <!-- section title start -->
-            <div class="new-product-slider swiper-container slider-nav-style-1" data-aos="fade-up" data-aos-delay="200">
-                <div class="new-product-wrapper swiper-wrapper">
-                    <!-- Single Prodect -->
-                    <div class="new-product-item swiper-slide">
-                        <div class="product">
-                            <div class="thumb">
-                                <a href="shop-left-sidebar.html" class="image">
-                                    <img src="assets/images/product-image/1.jpg" alt="Product" />
-                                    <img class="hover-image" src="assets/images/product-image/2.jpg" alt="Product" />
-                                </a>
-                                <span class="badges">
-                                    <span class="sale">-10%</span>
-                                    <span class="new">New</span>
-                                </span>
-                                <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                            class="icon-size-fullscreen"></i></a>
-                                    <a href="compare.html" class="action compare" title="Compare"><i
-                                            class="icon-refresh"></i></a>
-                                </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="shop-left-sidebar.html">Simple minimal Chair </a></h5>
-                                <span class="price">
-                                    <span class="new">$18.50</span>
-                                    <span class="old">$28.50</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Prodect -->
-                    <div class="new-product-item swiper-slide">
-                        <div class="product">
-                            <div class="thumb">
-                                <a href="shop-left-sidebar.html" class="image">
-                                    <img src="assets/images/product-image/3.jpg" alt="Product" />
-                                    <img class="hover-image" src="assets/images/product-image/4.jpg" alt="Product" />
-                                </a>
-                                <span class="badges">
-                                    <span class="sale">-7%</span>
-                                </span>
-                                <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                            class="icon-size-fullscreen"></i></a>
-                                    <a href="compare.html" class="action compare" title="Compare"><i
-                                            class="icon-refresh"></i></a>
-                                </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="shop-left-sidebar.html">Wooden decorations</a></h5>
-                                <span class="price">
-                                    <span class="new">$38.50</span>
-                                    <span class="old">$43.50</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Prodect -->
-                    <div class="new-product-item swiper-slide">
-                        <div class="product">
-                            <div class="thumb">
-                                <a href="shop-left-sidebar.html" class="image">
-                                    <img src="assets/images/product-image/5.jpg" alt="Product" />
-                                    <img class="hover-image" src="assets/images/product-image/6.jpg" alt="Product" />
-                                </a>
-                                <span class="badges d-none">
-                                    <span class="new">New</span>
-                                </span>
-                                <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                            class="icon-size-fullscreen"></i></a>
-                                    <a href="compare.html" class="action compare" title="Compare"><i
-                                            class="icon-refresh"></i></a>
-                                </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="shop-left-sidebar.html">High quality vase bottle</a></h5>
-                                <span class="price">
-                                    <span class="new">$38.50</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Prodect -->
-                    <div class="new-product-item swiper-slide">
-                        <div class="product">
-                            <div class="thumb">
-                                <a href="shop-left-sidebar.html" class="image">
-                                    <img src="assets/images/product-image/7.jpg" alt="Product" />
-                                    <img class="hover-image" src="assets/images/product-image/8.jpg" alt="Product" />
-                                </a>
-                                <span class="badges">
-                                    <span class="new">New</span>
-                                </span>
-                                <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                            class="icon-size-fullscreen"></i></a>
-                                    <a href="compare.html" class="action compare" title="Compare"><i
-                                            class="icon-refresh"></i></a>
-                                </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="shop-left-sidebar.html">Living & Bedroom Chair</a></h5>
-                                <span class="price">
-                                    <span class="new">$38.50</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Prodect -->
-                    <div class="new-product-item swiper-slide">
-                        <div class="product">
-                            <div class="thumb">
-                                <a href="shop-left-sidebar.html" class="image">
-                                    <img src="assets/images/product-image/9.jpg" alt="Product" />
-                                    <img class="hover-image" src="assets/images/product-image/10.jpg" alt="Product" />
-                                </a>
-                                <span class="badges">
-                                    <span class="sale">-5%</span>
-                                </span>
-                                <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                            class="icon-size-fullscreen"></i></a>
-                                    <a href="compare.html" class="action compare" title="Compare"><i
-                                            class="icon-refresh"></i></a>
-                                </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="shop-left-sidebar.html">Living & Bedroom Table</a></h5>
-                                <span class="price">
-                                    <span class="new">$38.50</span>
-                                    <span class="old">$40.50</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Prodect -->
-                </div>
-                <!-- Add Arrows -->
-                <div class="swiper-buttons">
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- New Product End -->
-
-    <!-- New Product Start -->
-    <div class="section pb-100px" data-aos="fade-up" data-aos-delay="200">
-        <div class="container">
-            <!-- section title start -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title text-start mb-11">
-                        <h2 class="title">12 Other Products In The Same Category:</h2>
-                    </div>
-                </div>
-            </div>
-            <!-- section title start -->
-            <div class="new-product-slider swiper-container slider-nav-style-1" data-aos="fade-up" data-aos-delay="200">
-                <div class="new-product-wrapper swiper-wrapper">
-                    <!-- Single Prodect -->
-                    <div class="new-product-item swiper-slide">
-                        <div class="product">
-                            <div class="thumb">
-                                <a href="shop-left-sidebar.html" class="image">
-                                    <img src="assets/images/product-image/1.jpg" alt="Product" />
-                                    <img class="hover-image" src="assets/images/product-image/2.jpg" alt="Product" />
-                                </a>
-                                <span class="badges">
-                                    <span class="sale">-10%</span>
-                                    <span class="new">New</span>
-                                </span>
-                                <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                            class="icon-size-fullscreen"></i></a>
-                                    <a href="compare.html" class="action compare" title="Compare"><i
-                                            class="icon-refresh"></i></a>
-                                </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="shop-left-sidebar.html">Simple minimal Chair </a></h5>
-                                <span class="price">
-                                    <span class="new">$18.50</span>
-                                    <span class="old">$28.50</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Prodect -->
-                    <div class="new-product-item swiper-slide">
-                        <div class="product">
-                            <div class="thumb">
-                                <a href="shop-left-sidebar.html" class="image">
-                                    <img src="assets/images/product-image/3.jpg" alt="Product" />
-                                    <img class="hover-image" src="assets/images/product-image/4.jpg" alt="Product" />
-                                </a>
-                                <span class="badges">
-                                    <span class="sale">-7%</span>
-                                </span>
-                                <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                            class="icon-size-fullscreen"></i></a>
-                                    <a href="compare.html" class="action compare" title="Compare"><i
-                                            class="icon-refresh"></i></a>
-                                </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="shop-left-sidebar.html">Wooden decorations</a></h5>
-                                <span class="price">
-                                    <span class="new">$38.50</span>
-                                    <span class="old">$43.50</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Prodect -->
-                    <div class="new-product-item swiper-slide">
-                        <div class="product">
-                            <div class="thumb">
-                                <a href="shop-left-sidebar.html" class="image">
-                                    <img src="assets/images/product-image/5.jpg" alt="Product" />
-                                    <img class="hover-image" src="assets/images/product-image/6.jpg" alt="Product" />
-                                </a>
-                                <span class="badges d-none">
-                                    <span class="new">New</span>
-                                </span>
-                                <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                            class="icon-size-fullscreen"></i></a>
-                                    <a href="compare.html" class="action compare" title="Compare"><i
-                                            class="icon-refresh"></i></a>
-                                </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="shop-left-sidebar.html">High quality vase bottle</a></h5>
-                                <span class="price">
-                                    <span class="new">$38.50</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Prodect -->
-                    <div class="new-product-item swiper-slide">
-                        <div class="product">
-                            <div class="thumb">
-                                <a href="shop-left-sidebar.html" class="image">
-                                    <img src="assets/images/product-image/7.jpg" alt="Product" />
-                                    <img class="hover-image" src="assets/images/product-image/8.jpg" alt="Product" />
-                                </a>
-                                <span class="badges">
-                                    <span class="new">New</span>
-                                </span>
-                                <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                            class="icon-size-fullscreen"></i></a>
-                                    <a href="compare.html" class="action compare" title="Compare"><i
-                                            class="icon-refresh"></i></a>
-                                </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="shop-left-sidebar.html">Living & Bedroom Chair</a></h5>
-                                <span class="price">
-                                    <span class="new">$38.50</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Prodect -->
-                    <div class="new-product-item swiper-slide">
-                        <div class="product">
-                            <div class="thumb">
-                                <a href="shop-left-sidebar.html" class="image">
-                                    <img src="assets/images/product-image/9.jpg" alt="Product" />
-                                    <img class="hover-image" src="assets/images/product-image/10.jpg" alt="Product" />
-                                </a>
-                                <span class="badges">
-                                    <span class="sale">-5%</span>
-                                </span>
-                                <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="icon-heart"></i></a>
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                            class="icon-size-fullscreen"></i></a>
-                                    <a href="compare.html" class="action compare" title="Compare"><i
-                                            class="icon-refresh"></i></a>
-                                </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="shop-left-sidebar.html">Living & Bedroom Table</a></h5>
-                                <span class="price">
-                                    <span class="new">$38.50</span>
-                                    <span class="old">$40.50</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Prodect -->
-                </div>
-                <!-- Add Arrows -->
-                <div class="swiper-buttons">
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- New Product End -->
 </section>
 <script src="https://unpkg.com/js-image-zoom/js-image-zoom.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-image-zoom/js-image-zoom.min.js"></script>
@@ -563,19 +220,7 @@
 
     var limStock = document.getElementById("limitedstock")
 
-//function addTocart(proId) {
- //   console.log('hello',proId)
-//    
-//    $.ajax({
-//        url:'/add-to-cart/'+proId,
- //       method:'get',
- //       success:(response)=>{
-  //         if (response.status) {
- //           let count=$('#cartCount').html()
-  //          count =parseInt(count)+1
- //           $('#cartCount').html(count)
-//           }
-///        }
-//    })
-//}
+function gotoLogin(){
+    location.href = "/login"
+}
 </script>

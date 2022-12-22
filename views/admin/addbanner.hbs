@@ -4,7 +4,7 @@
             <div class="col-9">
                 <div class="content-header">
                     <h2 class="content-title">Add New Banner</h2>
-                    
+
                 </div>
             </div>
             <form action="/admin/add-Banner" method="post" enctype="multipart/form-data">
@@ -16,19 +16,27 @@
                     <div class="card mb-4 mt-5">
 
                         <div class="card-body">
-                           
-                                <div class="mb-4">
-                                    <label for="product_name" class="form-label">Banner title</label>
-                                    <input type="text" name="name" placeholder="Type here" class="form-control"
-                                        id="product_name">
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label">Banner description</label>
-                                    <textarea placeholder="Type here" name="description" class="form-control"
-                                        rows="4"></textarea>
-                                </div>
 
-                        
+                            <div class="mb-4">
+                                <label for="product_name" class="form-label">Banner title</label>
+                                <input type="text" name="name" placeholder="Type here" class="form-control"
+                                    id="product_name">
+                            </div>
+                            <div class="mb-4">
+                                <label for="product_name" class="form-label">Category</label>
+                                <select name="category" class="form-select">
+                                    {{#each category}}
+                                    <option>{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Banner description</label>
+                                <textarea placeholder="Type here" name="description" class="form-control"
+                                    rows="4"></textarea>
+                            </div>
+
+
                         </div>
                     </div> <!-- card end// -->
 
@@ -50,12 +58,12 @@
             </form>
         </div>
 
-      
+
     </section> <!-- content-main end// -->
 </section>
 
 <script>
-    function viewImage(event){
-        document.getElementById('imageView').src=URL.createObjectURL(event.target.files[0])
+    function viewImage(event) {
+        document.getElementById('imageView').src = URL.createObjectURL(event.target.files[0])
     }
 </script>

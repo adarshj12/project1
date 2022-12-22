@@ -8,16 +8,8 @@ const cartHelpers = require('../helpers/cart-helpers')
 // const { use } = require('./admin');
 const collection = require('../config/collections')
 const db = require('../config/connection');
-
 const { CATEGORY_COLLECTION, USER_COLLECTION } = require('../config/collections');
-// const userdetailsHelpers = require('../helpers/userdetails-helpers');
-// const orderHelpers = require('../helpers/order-helpers')
 const { ObjectId } = require('mongodb');
-// const client = require("twilio")(otp.accoundSid, otp.authToken);
-// const fs = require('fs')
-// const pdf = require('pdf-creator-node')
-// const path = require('path')
-// var easyinvoice = require('easyinvoice');
 const userController = require('../controllers/userController')
 // const { resolve } = require('path');
 
@@ -70,10 +62,7 @@ router.get('/Product-View', userController.productView)
 
 router.get('/singleProduct-View', userController.singleProductView)
 
-
-
-
-
+router.get('/shop-now',userController.bannerShop)
 
 //---------------------------------PRODUCT VIEW END-----------------------------------------
 
@@ -83,7 +72,6 @@ router.get('/singleProduct-View', userController.singleProductView)
 
 
 router.get('/add-to-cart/:id',verifyLogin, userController.addToCart)
-
 
 
 router.get('/view-cart',verifyLogin, userController.viewCart)
@@ -152,12 +140,9 @@ router.get('/otp_page', (req, res) => {
 })
 
 
-// router.get('/otp_verify', userController.otpVerify),
+router.get('/otp_verify', userController.otpVerify),
 
-
-
-
-//   router.get('/otp_login', userController.otpLogin),
+ router.get('/otp_login', userController.otpLogin),
 
 
 

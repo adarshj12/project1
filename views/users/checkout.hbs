@@ -13,7 +13,7 @@
 
             <br>
             <div class="address-list mb-3">
-              {{#each user1.Address}}
+              {{#each address}}
               <div class="form-check mb-3 custome-radio choose-address">
                 <input value="{{this.CustomerName}},{{this.address}},{{this.state}},{{this.pincode}}"
                   class="form-check-input deliveryAddress" style="padding-left:2px" type="radio" name="address"
@@ -120,7 +120,7 @@
                   <p>Enter your coupon code if you have one.</p>
 
                   {{!-- <form method="post" action="/apply-coupon"> --}}
-                    <input type="text" required="" name="couponName" id="couponName" />
+                    <input type="text"  name="couponName" id="couponName" />
                     <p id="errorCoupon" style="color: red;"></p>
                     <button class="cart-btn-2" onclick="applyCoupon(event)">Apply Coupon</button>
                     {{!--
@@ -189,6 +189,14 @@
 
         verifyPayment(response, order)
       },
+       "modal": {
+        "ondismiss": function(){
+          window.location.replace('http://localhost:3000/cancel-payment?id='+order.receipt)
+          //window.location.replace('http://furns.store/cancel-payment')
+          
+            console.log('Checkout form closed');
+        }
+    },
       "prefill": {
         "name": "Gaurav Kumar",
         "email": "gaurav.kumar@example.com",

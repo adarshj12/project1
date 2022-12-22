@@ -21,7 +21,7 @@ module.exports = {
         let proObj = {
             item: ObjectId(prodId),
             quantity: 1,
-            status:'placed'
+          //  status:"placed"
         }
         return new Promise(async (resolve, reject) => {
             let userCart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: ObjectId(userId) })
@@ -260,6 +260,9 @@ module.exports = {
             console.log(stockArr);
             let userdetails = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: ObjectId(order.userId) })
             let status = order.paymentMethod === 'cod' ? 'placed' : 'pending'
+            products.forEach(products => {
+                products.status=status;
+               });
             let orderObj = {
                 deliveryDetails: {
                     CustomerName: userdetails.name,
@@ -290,7 +293,6 @@ module.exports = {
                   })
       
             }
-            
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
                      db.get().collection(collection.CART_COLLECTION).deleteOne({ user: ObjectId(order.userId) })
                      for(let i=0;i<products.length;i++){
@@ -489,15 +491,29 @@ module.exports = {
            });
         })
        },
+    // changePaymentStatus:(orderId)=>{
+    //     return new Promise((resolve,reject)=>{
+    //         db.get().collection(collection.ORDER_COLLECTION)
+    //         .updateOne({_id:ObjectId(orderId)},
+    //         {
+    //             $set:{
+    //                 status:'placed'
+    //             }
+    //         }).then(()=>{
+    //             resolve()
+    //         })
+    //     })
+    // },
     changePaymentStatus:(orderId)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.ORDER_COLLECTION)
             .updateOne({_id:ObjectId(orderId)},
             {
                 $set:{
-                    status:'placed'
+                    status:'placed',
+                  'products.$[].status':'placed'
                 }
-            }).then(()=>{
+              }).then(()=>{
                 resolve()
             })
         })
@@ -649,7 +665,13 @@ module.exports = {
                 resolve(response)
             })
         })
-    }
+    },
+    deletePendingOrder:(orderId)=>{
+        return new Promise((resolve,reject)=>{
+          db.get().collection(collection.ORDER_COLLECTION).deleteOne({_id:ObjectId(orderId)});
+          resolve()
+        })
+    },
     
    
 

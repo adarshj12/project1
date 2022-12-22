@@ -1,67 +1,195 @@
 <section class=" d-flex ml-5">
+    <aside>
+        <div class="">
+            <form action="/admin/sales-rep-mon" method="post">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="content-header">
+                            <div class="row-1 display-block">
+                                <div class="col">
+                                    <div class="reoprt-monthly">
 
-
-    <section class="content-main">
-        <div class="row">
-            <div class="col">
-        <form action="/admin/sales-rep-mon" method="post">
-            <div class="row">
-                <div class="col-9">
-                    <div class="content-header">
-                        <div class="row-1 display-block">
-                            <div class="col">
-                                <div class="reoprt-monthly">
-                                    <label for="monthly">Sales Report Monthly</label>
-                                    <select name="month" class="form-select" aria-label="Default select example">
-                                        <option selected></option>
-                                        <option value="01">January</option>
-                                        <option value="02">February</option>
-                                        <option value="03">March</option>
-                                        <option value="04">April</option>
-                                        <option value="05">May</option>
-                                        <option value="06">Hune</option>
-                                        <option value="07">July</option>
-                                        <option value="08">August</option>
-                                        <option value="09">Septembr</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                    </select>
-                                    <button class="btn btn-primary" type="submit">VIEW</button>
+                                        <label for="monthly">Sales Report Monthly</label>
+                                        <select name="month" class="form-select" aria-label="Default select example" onchange="report()">
+                                            <option >Select Month</option>
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">Hune</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">Septembr</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                        <button class="btn btn-warning" style="width:150px ;" id="monthButton" type="submit">VIEW</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
-            </div>
-            <div class="col">
-        <form action="/admin/sales-rep-daily" method="post">
-            <label for="daily">Sales Report Date Wise</label><br>
-            <div class="row">
-                <div class="col">
+            </form>
+        </div>
+        <div class="">
+            <form action="/admin/sales-rep-daily" method="post">
+                <label for="daily">Sales Report Date Wise</label><br>
+                <div class="row">
+                    <div class="col">
 
-                    <label for="start">Start Date</label><br>
-                    <input type="date" id="start" name="start"><br>
-                    <label for="end">End Date</label><br>
-                    <input type="date" id="end" name="end">
+                        <label for="startDate">Start Date</label><br>
+                        <input type="date" id="startDate" name="start" ><br>
+                        <label for="endDate">End Date</label><br>
+                        <input type="date" id="endDate" name="end">
+                    </div><br>
+                    <div class="">
+                        <button class="btn btn-warning" style="width:150px ;" onclick="report()">VIEW</button>
+                    </div><br>
+
+
                 </div>
-                <div class="col">
-                    <button class="btn btn-primary">VIEW</button>
 
-                </div><br>
+            </form>
+        </div>
+         <div class="mt-5">
+            <form action="/admin/sales-rep-yearly" method="post">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="content-header">
+                            <div class="row-1 display-block">
+                                <div class="col">
+                                    <div class="reoprt-yearly">
+
+                                        <label for="yearly">Sales Report Year</label>
+                                        <select name="year" class="form-select" aria-label="Default select example" onchange="report()">
+                                            <option >Select Year</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2019">2019</option>
+                                        </select>
+                                        <button class="btn btn-warning" style="width:150px ;" id="yearButton" type="submit">VIEW</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </aside>
 
 
+    <div class="report" id="sales_report" style=" width:650px;">
+
+       {{#if result}}
+        <div class="card ">
+            <div class="card-body">
+                {{#if monthly}}
+                <h4 class=" header-title  text-center">Sales Report - {{#switch mon}}
+                    <em class="mb-1 card-title"> {{#case '12'}} December {{/case}}
+                        {{#case '11'}} November {{/case}}
+                        {{#case '10'}} October {{/case}}
+                        {{#case '09'}} September {{/case}}
+                        {{#case '08'}} August {{/case}}
+                        {{#case '07'}} July {{/case}}
+                        {{#case '06'}} June {{/case}}
+                        {{#case '05'}} May {{/case}}
+                        {{#case '04'}} April {{/case}}
+                        {{#case '03'}} March {{/case}}
+                        {{#case '02'}} February {{/case}}
+                        {{#case '01'}} January {{/case}}
+                    </em>
+                    {{/switch}}
+                </h4>
+                {{/if}}
+                {{#if date}}
+                <h4 class=" header-title  text-center">Sales Report for {{startDate}} {{#switch startMon}}
+                    <em class="mb-1 card-title"> {{#case '12'}} December {{/case}}
+                        {{#case '11'}} November {{/case}}
+                        {{#case '10'}} October {{/case}}
+                        {{#case '09'}} September {{/case}}
+                        {{#case '08'}} August {{/case}}
+                        {{#case '07'}} July {{/case}}
+                        {{#case '06'}} June {{/case}}
+                        {{#case '05'}} May {{/case}}
+                        {{#case '04'}} April {{/case}}
+                        {{#case '03'}} March {{/case}}
+                        {{#case '02'}} February {{/case}}
+                        {{#case '01'}} January {{/case}}
+                    </em>
+                    {{/switch}} to {{endDate}} {{#switch endMon}}
+                    <em class="mb-1 card-title"> {{#case '12'}} December {{/case}}
+                        {{#case '11'}} November {{/case}}
+                        {{#case '10'}} October {{/case}}
+                        {{#case '09'}} September {{/case}}
+                        {{#case '08'}} August {{/case}}
+                        {{#case '07'}} July {{/case}}
+                        {{#case '06'}} June {{/case}}
+                        {{#case '05'}} May {{/case}}
+                        {{#case '04'}} April {{/case}}
+                        {{#case '03'}} March {{/case}}
+                        {{#case '02'}} February {{/case}}
+                        {{#case '01'}} January {{/case}}
+                    </em>
+                    {{/switch}}
+                </h4>
+                {{/if}}
+                {{#if year}}
+                <h4 class=" header-title  text-center">Sales Report -
+                    <em class="mb-1 card-title">{{year}}  </em>
+                </h4>
+                {{/if}}
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sl. No</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each result}}
+                        <tr>
+
+                            <td scope="row">{{counter @index}}</td>
+                            <td id="cattd">{{this._id}}</td>
+                            <td id="totaltd">{{this.totalAmount}}</td>
+
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
             </div>
+        </div>
 
-        </form>
-        </div>
-        </div>
-    </section>
+     {{/if}}
+    </div> <!-- end row -->
+
+
+
+</section>
 
 
 
 
 
 </section>
+
+<script>
+    var count = 0
+   // document.getElementById("sales_report").hidden = true
+    
+    
+    function report() {
+        count++;
+        
+        var start = document.getElementById("startDate").value
+        var end = document.getElementById("endDate").value
+        console.log('this is date ',start,end)
+        
+    }
+</script>

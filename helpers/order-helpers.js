@@ -12,7 +12,7 @@ module.exports = {
         { $project: { _id: 0 } },
       ]).toArray().then((respo) => {
         //  console.log(respo[0].sum);       
-        resolve(respo[0].sum)
+        resolve(respo[0]?.sum)
       })
     })
 
@@ -355,8 +355,9 @@ module.exports = {
     return new Promise(async(resolve,reject)=>{
 
       let userCart= await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
+      console.log('aaaaaaaaaaaaaaaaa',userCart,'bbbbbbbbbbbbbbbbbbbbb');
      //if(userCart.coupon){
-      if(userCart.code){
+      if(userCart.coupon){
           
         let couponData=await db.get().collection(collection.COUPON_COLLECTION).findOne({_id:ObjectId(userCart.coupon)});
        
@@ -463,6 +464,47 @@ module.exports = {
       ]).toArray();
       console.log(dailyReport);
       resolve(dailyReport)
+    })
+  },
+  getYearlySalesReport:(year)=>{
+    return new Promise(async(resolve,reject)=>{
+      console.log(year);
+      let YearlyReport=await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+       
+        {
+          $match: { orderYear: year} 
+        },
+        {
+          '$unwind': {
+            'path': '$products'
+          }
+        }, {
+          '$lookup': {
+            'from': 'product', 
+            'localField': 'products.item', 
+            'foreignField': '_id', 
+            'as': 'output'
+          }
+        }, {
+          '$unwind': {
+            'path': '$output'
+          }
+        }, {
+          '$group': {
+            '_id': '$output.category', 
+            'totalAmount': {
+              '$sum': '$totalAmount'
+            }
+          }
+        }, {
+          '$project': {
+            '_id': 1, 
+            'totalAmount': 1
+          }
+        }
+      ]).toArray();
+      console.log(YearlyReport);
+      resolve(YearlyReport)
     })
   },
   paymentMethod:()=>{

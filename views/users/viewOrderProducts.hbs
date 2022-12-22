@@ -52,11 +52,12 @@
 
                                                         <tr>
 
-                                                            <td class="product-thumbnail" >
+                                                            <td class="product-thumbnail">
                                                                 {{!-- <a href="#"><img class="img-responsive ml-15px"
                                                                         src="/images/{{this.product._id}}.jpg"
                                                                         alt="" /></a> --}}
-                                                                <a href="#"><img class="img-responsive ml-9px" id="productId" value="{{this.item}}"
+                                                                <a href="#"><img class="img-responsive ml-9px"
+                                                                        id="productId" value="{{this.item}}"
                                                                         src="/productImages/{{this.product._id}}0.jpg"
                                                                         alt="" /></a>
                                                             </td>
@@ -69,25 +70,29 @@
                                                                     id="pQ{{@index}}">{{this.quantity}}</a></td>
 
                                                             <td class="product-status">
-                                                                                          
-                                                                <h5><em>{{this.status}}</em></h5>
-                                                                
-                                                             
 
-                                                            
+                                                                <h5><em>{{this.status}}</em></h5>
+
+
+
+
                                                             </td>
 
                                                             <td class="product-remove">
-                                                                {{!-- {{#ifEq this.status "placed" "Shipped" }} --}}
-                                                              {{#ifEquals this.status 'placed' }}
-                                                                <a href="" class="btn btn-danger lg-rounded" style="width:70% ;" onclick="cancelOrder('{{this.product._id}}','{{this._id}}')">cancel</a>
-                                                                  {{/ifEquals}}
-                                                                   {{#ifEquals this.status 'Shipped' }}
-                                                                <a href="" class="btn btn-danger" style="width:70% ;" onclick="cancelOrder('{{this.product._id}}','{{this._id}}')">cancel</a>
-                                                                  {{/ifEquals}}
+                                                                {{#ifEquals this.status 'placed' }}
+                                                                <a href="" class="text-bold"
+                                                                    style="font-size:larger ;color:red;"
+                                                                    onclick="cancelOrder('{{this.product._id}}','{{this._id}}')"><b>cancel</b></a>
+                                                                {{/ifEquals}}
+                                                                {{#ifEquals this.status 'Shipped' }}
+                                                                <a href="" class="text-bold"
+                                                                    style="font-size:larger ;color:red;"
+                                                                    onclick="cancelOrder('{{this.product._id}}','{{this._id}}')"><b>cancel</b></a>
+                                                                {{/ifEquals}}
                                                                 {{!-- {{/ifEq}} --}}
                                                                 {{#ifEquals this.status 'Delivered' }}
-                                                                <a href="" id="returnProd" onclick="returnProd('{{this.product._id}}','{{this.quantity}}','{{this._id}}')"><b>Return</b></a>
+                                                                <a href="" id="returnProd"
+                                                                    onclick="returnProd('{{this.product._id}}','{{this.quantity}}','{{this._id}}')"><b>Return</b></a>
                                                                 {{/ifEquals}}
                                                                 {{#ifEquals this.status 'canceled'}}
                                                                 {{#ifNotEquals this.paymentMethod "cod"}}
@@ -95,7 +100,7 @@
                                                                 {{/ifNotEquals}}
                                                                 {{/ifEquals}}
                                                                 {{#ifReq this.status order.paymentMethod 'canceled' 'razorpay' }}
-                                                                 <a href=""><b>Refunded</b></a>
+                                                                <a href=""><b>Refunded</b></a>
                                                                 {{/ifReq}}
                                                             </td>
                                                             {{/each}}
@@ -145,32 +150,32 @@
 <footer class="main-footer font-xs">
 
     <script>
-       
 
-        function cancelOrder(pid,oId) {
+
+        function cancelOrder(pid, oId) {
             console.log('called cancel function')
-          //  var orderId = document.getElementById("orderId").innerText;
-          var orderId = oId
+            //  var orderId = document.getElementById("orderId").innerText;
+            var orderId = oId
             console.log(orderId)
-           var  proId = pid
-      //      var elem = document.getElementById("productId")
-       //     let proId = elem.getAttribute("value");
+            var proId = pid
+            //      var elem = document.getElementById("productId")
+            //     let proId = elem.getAttribute("value");
             console.log(proId)
-             
-          $.ajax({
-            url:'/cancel-order',
-            data:{
-                proId,orderId
-            },
-            method:'post',
-            success: (response) => {
-                alert('Product canceled')
-                location.reload()
-            }
-          })
-          
-       
-          
+
+            $.ajax({
+                url: '/cancel-order',
+                data: {
+                    proId, orderId
+                },
+                method: 'post',
+                success: (response) => {
+                    alert('Product canceled')
+                    location.reload()
+                }
+            })
+
+
+
 
         }
 
@@ -194,7 +199,7 @@
                 var product = {
                     "quantity": productQuantity,
                     "description": productName,
-                    "tax-rate": 6,
+                    "tax-rate": 0,
                     "price": productPrice
                 }
                 productArray.push(product)
@@ -209,12 +214,12 @@
                 },
                 "images": {
 
-                    "logo": "https://public.easyinvoice.cloud/img/logo_en_original.png",
+                    "logo": "https://i.postimg.cc/Z5MvWH77/2.webp",
                 },
 
                 "sender": {
-                    "company": "CyberPark inc.",
-                    "address": "Sample Street 123",
+                    "company": "Furns Store.",
+                    "address": "Thrikkakara",
                     "zip": "682004",
                     "city": "Ernakulam",
                     "country": "India"
@@ -261,20 +266,20 @@
         }
 
 
-         function returnProd(pId,pQ,oId){
-            console.log(pId,'bhool bhulaiya',pQ)
-                
-          $.ajax({
-            url:'/return-product',
-            data:{
-                pId,pQ,oId
-            },
-            method:'post',
-            success: (response) => {
-                alert('Product Returned')
-                location.reload()
-            }
-          })
-          
+        function returnProd(pId, pQ, oId) {
+            console.log(pId, 'bhool bhulaiya', pQ)
+
+            $.ajax({
+                url: '/return-product',
+                data: {
+                    pId, pQ, oId
+                },
+                method: 'post',
+                success: (response) => {
+                    alert('Product Returned')
+                    location.reload()
+                }
+            })
+
         }
     </script>

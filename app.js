@@ -40,10 +40,10 @@ app.use(
     secret: "key",
     cookie: { maxAge: 600000 },
     resave: true,
-    store: new mongoDbSesson({
-      uri: "mongodb://localhost:27017/Evara",
-      collection: "session",
-    }),
+    // store: new mongoDbSesson({
+    //   uri: "mongodb://localhost:27017/Evara",
+    //   collection: "session",
+    // }),
     saveUninitialized: true,
   })
 );
@@ -80,6 +80,9 @@ app.engine('hbs', hbs.engine({
     },
     ifNotGr :function(state, value, options) {
       return (state < value) ? options.fn(this) : options.inverse(this);
+    },
+    ifTEq: function(arg1, arg2, arg3,arg4, options){
+      return ((arg1 == arg2)||(arg1 == arg3)||(arg1 == arg4)) ? options.fn(this) : options.inverse(this);
     },
   }
 }))

@@ -7,7 +7,8 @@ const db = require('../config/connection')
 const cartHelpers = require('../helpers/cart-helpers')
 const productHelpers = require('../helpers/product-helpers')
 const orderHelpers = require('../helpers/order-helpers')
-const fileUpload = require('express-fileupload')
+const fileUpload = require('express-fileupload');
+const userdetailsHelpers = require('../helpers/userdetails-helpers');
 const ObjectId = require('mongodb').ObjectId
 
 const emailid = "admin@gmail.com";
@@ -250,7 +251,8 @@ module.exports = {
         res.render('admin/banners', { layout: 'adminLayout', bannerdetails })
     },
     addbanner: async (req, res) => {
-        res.render('admin/addbanner', { layout: 'adminLayout' })
+       let category =  await userdetailsHelpers.getAllCategories()
+        res.render('admin/addbanner', { layout: 'adminLayout',category })
     },
     addBanner: (req, res) => {
         console.log(req.body);
@@ -286,10 +288,12 @@ module.exports = {
     monthlySalesReport: async (req, res) => {
 
         console.log('dxgdgdgdg');
+        let mon = req.body.month
         let month = "2022-" + req.body.month
         console.log(month);
         let result = await orderHelpers.getMonthlySalesReport(month)
-        res.render('admin/reportMonthly', { layout: 'adminLayout', result })
+        // res.render('admin/reportMonthly', { layout: 'adminLayout', result })
+        res.render('admin/selectReportPeriod', { layout: 'adminLayout',result,mon,monthly:true })
 
 
     },
@@ -297,10 +301,25 @@ module.exports = {
 
         console.log('dxgdgdgdg');
         console.log(req.body.start, req.body.end);
-
+        let startDate = req.body.start.slice(8,10)  
+        let endDate = req.body.end.slice(8,10)  
+        let startMon = req.body.start.slice(5,7) 
+        let endMon = req.body.end.slice(5,7)
+        console.log(startMon,'and',endMon,'with',startDate,'and',endDate); 
         let result = await orderHelpers.getDailySalesReport(req.body.start, req.body.end)
         console.log(result);
-        res.render('admin/reportDaily', { layout: 'adminLayout', result })
+        res.render('admin/selectReportPeriod', { layout: 'adminLayout', result ,startMon,endMon,startDate,endDate,date:true})
+
+
+    },
+    yearlySalesReport: async (req, res) => {
+
+        console.log('dxgdgdgdg');
+        let year = req.body.year
+        let result = await orderHelpers.getYearlySalesReport(year)
+        console.log(result);
+        // res.render('admin/reportMonthly', { layout: 'adminLayout', result })
+        res.render('admin/selectReportPeriod', { layout: 'adminLayout',result,year,yearly:true })
 
 
     },
@@ -342,6 +361,12 @@ module.exports = {
             console.log(error)
             res.render('404', { layout: null })
         })
+    },
+    removeCategoryOffer: async(req,res)=>{
+      let id =req.params.id
+      console.log('category id',id);
+      userHelpers.removeCategoryOffer(id)
+      res.redirect('/admin/viewOffer')
     },
     chart1: async (req, res) => {
         await orderHelpers.getDailySalesGraph().then((response) => {

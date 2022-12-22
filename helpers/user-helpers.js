@@ -42,7 +42,9 @@ module.exports={
                       console.log("login success")
                       response.user=user
                       response.status=true
-                      resolve(response)
+                      console.log('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu',response,'sddddddddddddddddddddddddddddddddddddd');
+                    //   resolve(response)
+                    resolve(response)
                   }else{
                       
                       console.log("login failed")

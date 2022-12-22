@@ -14,20 +14,20 @@
                     <div class="card-body">
                         <div class="mb-4">
                             <label for="product_name" class="form-label">Product title</label>
-                            <input required name="name" type="text" placeholder="Type here" class="form-control"
+                            <input  name="name" type="text"  class="form-control"
                                 id="product_name" value="{{product.name}}">
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Description</label>
-                            <textarea required name="description" placeholder="Type here" class="form-control"
-                                rows="8" value="{{product.description}}"></textarea>
+                            <input name="description"  class="form-control"
+                                rows="8" value="{{product.description}}"></input>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">product Price</label>
                                     <div class="row gx-2">
-                                        <input required name="price" placeholder="₹"  value="{{product.price}}" type="number" class="form-control">
+                                        <input  name="price"   value="{{product.price}}" type="number" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                                 <div class="mb-4">
                                     <label class="form-label">Stock</label>
                                     <div class="row gx-2">
-                                        <input required name="stock" placeholder=""  value="{{product.stock}}" type="number" class="form-control">
+                                        <input  name="stock" value="{{product.stock}}" type="number" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -94,11 +94,6 @@
                                     <img src="/productImages/{{product._id}}4.jpg" alt="" id="imageView5">
                                 </div>
                             </div>
-                            {{!-- <input name="image" multiple class="form-control" type="file">
-                             <input name="image" multiple class="form-control" type="file">
-                              <input name="image" multiple class="form-control" type="file">
-                               <input name="image" multiple class="form-control" type="file">
-                                <input name="image" multiple class="form-control" type="file"> --}}
                         </div>
                     </div>
                 </div> <!-- card end// -->
@@ -155,92 +150,5 @@
     }
 </script>
 
+<script defer src="https://cdn.crop.guide/loader/l.js?c=WMMLZM"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{!-- <section class="content-main">
-    <div class="row">
-        <div class="col-9">
-            <div class="content-header">
-                <h2 class="content-title">Add New Product</h2>
-            </div>
-        </div>
-        <form action="/admin/add-Product" method="POST" enctype="multipart/form-data">
-            <div class="col-lg-10">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <label for="product_name" class="form-label">Product title</label>
-                            <input required name="name" type="text" placeholder="Type here" class="form-control"
-                                id="product_name" />
-                        </div>
-                        <!-- <div class="mb-4">
-              <label for="product_slug" class="form-label">Slug</label>
-              <input
-                name="slug"
-                type="text"
-                placeholder="Type here"
-                class="form-control"
-                id="product_slug"
-              />
-            </div> -->
-                        <div class="mb-4">
-                            <label class="form-label">Description</label>
-                            <textarea required name="description" placeholder="Type here" class="form-control"
-                                rows="8"></textarea>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="mb-4">
-                                    <label class="form-label"> Price</label>
-                                    <div class="row gx-2">
-                                        <input required name="price" placeholder="$" type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- card end// -->
-            </div>
-            <div class="col-lg-10">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4>Media</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="input-upload">
-
-                            <input name="productImage" multiple class="form-control" type="file" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-10">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <button type="submit" class="btn btn-md rounded font-sm hover-up">
-                            Publish
-                        </button>
-                        <a href="/admin/add-Products" class="btn btn-light rounded font-md ms-1">Cancel</a>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</section> --}}
