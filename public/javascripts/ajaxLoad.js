@@ -45,6 +45,13 @@ $.ajax({
   url:'/add-to-cart/'+proId,
   method:'get',
   success:(response)=>{
+    Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Item added to cart',
+            showConfirmButton: false,
+           timer: 1500
+          })
     console.log(response)
    console.log("stock",response.products.stock);
      console.log("cart count",response.userCart[0].limit);
