@@ -1,14 +1,16 @@
 const db = require('../config/connection')
+require('dotenv').config()
 const userHelpers = require('../helpers/user-helpers');
 const productHelpers = require('../helpers/userdetails-helpers');
 const cartHelpers = require('../helpers/cart-helpers')
-const otp = require('../helpers/OTPhelpers');
+// const otp = require('../helpers/OTPhelpers');
 const { ObjectId } = require('mongodb');
 // const { use } = require('./admin');
 const collection = require('../config/collections')
 const userdetailsHelpers = require('../helpers/userdetails-helpers');
 const orderHelpers = require('../helpers/order-helpers')
-const client = require('twilio')(otp.accoundSid, otp.authToken);
+// const client = require('twilio')(otp.accoundSid, otp.authToken);
+const client = require('twilio')(process.env.accoundSid, process.env.authToken);
 var easyinvoice = require('easyinvoice');
 const { response } = require('express');
 
@@ -106,10 +108,8 @@ module.exports = {
             res.redirect('/')
             console.log('hhhhhhh')
         } else {
-
-            //  console.log('kkkkk')
             res.render('users/userLogin', { "loginError": req.session.loginError })
-            req.session.loginError = false
+            //req.session.loginError = false
         }
        } catch (error) {
         console.log(error);
@@ -122,8 +122,10 @@ module.exports = {
             userHelpers.doLogin(req.body).then((response) => {
                 console.log('mongo atlas',response);
                 if (response.isBlocked) {
-                    req.session.loginErr = "You are blocked";
-                    res.render('users/userLogin', { userblockedErr: req.session.loginErr })
+                    console.log('blocked user');
+                    req.session.loginError = "You are blocked";
+                    // res.render('users/userLogin', { userblockedErr: req.session.loginErr })
+                    res.redirect('/login')
                   
                 } else {
                     if (response.status) {
@@ -136,7 +138,8 @@ module.exports = {
                     }
                     else {
                         req.session.loginError = "invalid login id or password"
-                        res.render('users/userLogin', { loginError: req.session.loginErr })
+                        // res.render('users/userLogin', { loginError: req.session.loginErr })
+                        res.redirect('/login')
                     }
                 }
             })
@@ -149,7 +152,8 @@ module.exports = {
         console.log('hhhhhhhhhhhhhhhhhhhhhhh');
         client
         .verify
-        .services(otp.serviceId)
+        // .services(otp.serviceId)
+        .services(process.env.serviceId)
         .verifications
         .create({
             to: `+${req.query.phoneNumber}`,
@@ -164,7 +168,8 @@ module.exports = {
 
         client
             .verify
-            .services(otp.serviceId)
+            // .services(otp.serviceId)
+            .services(process.env.serviceId)
             .verificationChecks
             .create({
                 to: `+${req.query.phoneNumber}`,
@@ -175,7 +180,7 @@ module.exports = {
                 if (data.valid) {
                     let Number = data.to.slice(3);
                     let userData = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile: Number });
-                    if (userData.mobile == Number) {
+                    if (userData?.mobile == Number) {
                         req.session.user = userData;
                         res.send({ value: 'success' })
                     } else {
@@ -596,7 +601,11 @@ module.exports = {
             let coupons = await orderHelpers.getAllCoupons()
             let user1 = await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(user._id)})
             console.log(user1);
-            res.render('users/accountHome', { user ,coupons,user1})
+            let cartCount = await cartHelpers.getCartCount(user._id)
+            let wishCount = await cartHelpers.getWishCount(user._id)
+            let totalValue = await cartHelpers.getTotalAmount(user._id)
+            let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
+            res.render('users/accountHome', { user ,coupons,user1,cartCount,wishCount,totalValue,cartProd})
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -609,7 +618,11 @@ module.exports = {
             let userId = req.session.user._id
         let user = req.session.user
         let orders = await cartHelpers.getUserOrders(userId)
-        res.render('users/myOrders', { user, orders })
+        let cartCount = await cartHelpers.getCartCount(user._id)
+            let wishCount = await cartHelpers.getWishCount(user._id)
+            let totalValue = await cartHelpers.getTotalAmount(user._id)
+            let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
+        res.render('users/myOrders', { user, orders,cartCount,wishCount,totalValue,cartProd })
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -622,7 +635,11 @@ module.exports = {
         let oId = id
         let products = await cartHelpers.getOrderProducts(id)
         let order = await db.get().collection(collection.ORDER_COLLECTION).findOne({ _id: ObjectId(oId) })
-        res.render('users/viewOrderProducts', { user, products, order })
+        let cartCount = await cartHelpers.getCartCount(user._id)
+            let wishCount = await cartHelpers.getWishCount(user._id)
+            let totalValue = await cartHelpers.getTotalAmount(user._id)
+            let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
+        res.render('users/viewOrderProducts', { user, products, order,cartCount,wishCount,totalValue,cartProd })
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -635,10 +652,14 @@ module.exports = {
         try {
             let user = req.session.user
         let user1 = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: ObjectId(user._id) })
-        console.log("/////////////////////////////////////////////////////////////////////////////////////////////////////////////",user1,"/////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+        // console.log("/////////////////////////////////////////////////////////////////////////////////////////////////////////////",user1,"/////////////////////////////////////////////////////////////////////////////////////////////////////////////");
         // let address= user.Address
         let address= user1.Address
-        res.render('users/userProfile', { user,address })
+        let cartCount = await cartHelpers.getCartCount(user._id)
+            let wishCount = await cartHelpers.getWishCount(user._id)
+            let totalValue = await cartHelpers.getTotalAmount(user._id)
+            let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
+        res.render('users/userProfile', { user,address,cartCount,wishCount,totalValue,cartProd})
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -666,7 +687,11 @@ module.exports = {
         try {
             let userdetails = req.session.user
         // console.log(req.session.user);
-        res.render('users/updateProfile', { userdetails })
+        let cartCount = await cartHelpers.getCartCount(user._id)
+            let wishCount = await cartHelpers.getWishCount(user._id)
+            let totalValue = await cartHelpers.getTotalAmount(user._id)
+            let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
+        res.render('users/updateProfile', { userdetails,cartCount,wishCount,totalValue,cartProd })
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -679,9 +704,14 @@ module.exports = {
             let user = req.session.user
         let aid = req.query.id
         console.log(user._id, aid);
+        let cartCount = await cartHelpers.getCartCount(user._id)
+            let wishCount = await cartHelpers.getWishCount(user._id)
+            let totalValue = await cartHelpers.getTotalAmount(user._id)
+            let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
         userHelpers.getAddress(user._id, aid).then((address) => {
             console.log(address);
-            res.render('users/editAddress', { user, address })
+            
+            res.render('users/editAddress', { user, address,cartCount,wishCount,totalValue,cartProd })
         })
         } catch (error) {
             console.log(error);
@@ -845,6 +875,7 @@ module.exports = {
             let u = await db.get().collection(collection.WISHLIST_COLLECTION).findOne({user:ObjectId(user._id)})
             totalValue = await cartHelpers.getTotalAmount(user._id)
             cartProd = await cartHelpers.getCartProducts(req.session.user._id)
+            var cartCount = await cartHelpers.getCartCount(user._id)
             if(u){
                 let products = await cartHelpers.getWishProducts(user._id)
             console.log('wishst products', products);
@@ -852,7 +883,7 @@ module.exports = {
             console.log(products[0].output);
             wishCount = await cartHelpers.getWishCount(user._id)
             if (products.length > 0) {
-                res.render('users/wishlist', { user, pro, wishCount,cartProd,totalValue })
+                res.render('users/wishlist', { user, pro, wishCount,cartProd,totalValue,cartCount })
             }
             else {
                 res.render('users/emptyWish')

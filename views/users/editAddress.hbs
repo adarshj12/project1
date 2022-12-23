@@ -1,5 +1,60 @@
 <section class="content-main">
-
+  <!-- OffCanvas Cart Start -->
+    <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
+        <div class="inner">
+            <div class="head">
+                <span class="title">Cart</span>
+                <button class="offcanvas-close">×</button>
+            </div>
+            <div class="body customScroll">
+                <ul class="minicart-product-list">
+                 
+                   {{#each cartProd}}
+                    <li>
+                        <a href="single-product.html" class="image"><img src="/productImages/{{this.product._id}}0.jpg"
+                                alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="single-product.html" class="title">{{this.product.name}}</a>
+                            <span class="quantity-price">{{this.quantity}} x <span class="amount">₹{{this.product.price}}</span></span>
+                            <a href="#" class="remove">×</a>
+                        </div>
+                    </li>
+                    
+                     
+                    
+                     {{/each}}
+                     
+                </ul>
+            </div>
+            <div class="foot">
+                <div class="sub-total">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-start">Total :</td>
+                                <td class="text-end theme-color">₹{{totalValue}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 
+                <div class="buttons">
+                    {{#if user}}
+                    <a href="/view-cart" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                    {{#ifNotEquals cartCount 0}}
+                    <a href="/place-order" class="btn btn-outline-dark current-btn">checkout</a>
+                    {{/ifNotEquals}}
+                    {{else}}
+                     <a href="/login" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                     <a href="/login" class="btn btn-outline-dark current-btn">checkout</a>
+                     {{/if}}
+                    
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <!-- OffCanvas Cart End -->
     <div class="card">
         <div class="card-body">
             <div class="row gx-5">

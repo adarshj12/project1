@@ -1,5 +1,6 @@
 <section>
       <!-- OffCanvas Cart Start -->
+     <!-- OffCanvas Cart Start -->
     <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
         <div class="inner">
             <div class="head">
@@ -41,17 +42,20 @@
                 <div class="buttons">
                     {{#if user}}
                     <a href="/view-cart" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                    {{#ifNotEquals cartCount 0}}
                     <a href="/place-order" class="btn btn-outline-dark current-btn">checkout</a>
+                    {{/ifNotEquals}}
                     {{else}}
                      <a href="/login" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
                      <a href="/login" class="btn btn-outline-dark current-btn">checkout</a>
                      {{/if}}
                     
                 </div>
-                <p class="minicart-message">Free Shipping on All Orders Over ₹100!</p>
+               
             </div>
         </div>
     </div>
+    <!-- OffCanvas Cart End -->
     <!-- OffCanvas Cart End -->
      <!-- Cart Area Start -->
     <div class="cart-main-area pt-100px pb-100px">
@@ -66,7 +70,7 @@
                                     <tr>
                                         <th>Image</th>
                                         <th>Product Name</th>
-                                        <th>Add To Cart</th>
+                                        <th>View</th>
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
@@ -76,7 +80,10 @@
                                         <td class="product-thumbnail">
                                             <a href="#"><img class="img-responsive ml-15px" src="/productImages/{{this._id}}0.jpg" alt="" /></a></td>
                                         <td class="product-name"><a href="#">{{this.name}}</a></td>
-                                        <td class="product-cart"><a   href="/singleProduct-View?id={{this._id}}"><i class="icon-handbag"></i></a></td>
+                                        <td class="product-cart"><a   href="/singleProduct-View?id={{this._id}}">
+                                        {{!-- <i class="icon-handbag"></i> --}}
+                                        view product
+                                        </a></td>
                                        
                                         <td class="product-remove">
                                             {{!-- <a href="#"><i class="icon-close " style="color: red;"></i></a> --}}
