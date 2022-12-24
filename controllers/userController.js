@@ -692,13 +692,14 @@ module.exports = {
         );
         try {
             let userdetails = req.session.user
+            let user =  req.session.user
         // console.log(req.session.user);
          let category = await productHelpers.getAllCategories()
         let cartCount = await cartHelpers.getCartCount(user._id)
             let wishCount = await cartHelpers.getWishCount(user._id)
             let totalValue = await cartHelpers.getTotalAmount(user._id)
             let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
-        res.render('users/updateProfile', { userdetails,cartCount,wishCount,totalValue,cartProd,category })
+        res.render('users/updateProfile', { userdetails,cartCount,wishCount,totalValue,cartProd,category,user })
         } catch (error) {
             console.log(error);
             res.render('users/404')
