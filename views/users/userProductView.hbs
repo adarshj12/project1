@@ -8,22 +8,23 @@
             </div>
             <div class="body customScroll">
                 <ul class="minicart-product-list">
-                 
-                   {{#each cartProd}}
+
+                    {{#each cartProd}}
                     <li>
                         <a href="single-product.html" class="image"><img src="/productImages/{{this.product._id}}0.jpg"
                                 alt="Cart product Image"></a>
                         <div class="content">
                             <a href="single-product.html" class="title">{{this.product.name}}</a>
-                            <span class="quantity-price">{{this.quantity}} x <span class="amount">₹{{this.product.price}}</span></span>
+                            <span class="quantity-price">{{this.quantity}} x <span
+                                    class="amount">₹{{this.product.price}}</span></span>
                             <a href="#" class="remove">×</a>
                         </div>
                     </li>
-                    
-                     
-                    
-                     {{/each}}
-                     
+
+
+
+                    {{/each}}
+
                 </ul>
             </div>
             <div class="foot">
@@ -37,7 +38,7 @@
                         </tbody>
                     </table>
                 </div>
-                 
+
                 <div class="buttons">
                     {{#if user}}
                     <a href="/view-cart" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
@@ -45,12 +46,12 @@
                     <a href="/place-order" class="btn btn-outline-dark current-btn">checkout</a>
                     {{/ifNotEquals}}
                     {{else}}
-                     <a href="/login" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                     <a href="/login" class="btn btn-outline-dark current-btn">checkout</a>
-                     {{/if}}
-                    
+                    <a href="/login" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                    <a href="/login" class="btn btn-outline-dark current-btn">checkout</a>
+                    {{/if}}
+
                 </div>
-             
+
             </div>
         </div>
     </div>
@@ -60,7 +61,7 @@
             <div class="row">
                 <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
                     <!-- Shop Top Area Start -->
-                   
+
                     <!-- Shop Top Area End -->
 
                     <!-- Shop Bottom Area Start -->
@@ -68,40 +69,44 @@
 
                         <div class="row">
 
-                        
 
-                          
-                             {{#each products}}
+                        <h4 id="username" hidden>{{user._id}}</h4>
+                         
+                            {{#each products}}
                             <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6" data-aos="fade-up" data-aos-delay="200">
                                 <!-- Single Prodect -->
                                 <div class="product mb-25px">
                                     <div class="thumb">
                                         <a href="/singleProduct-View?id={{this._id}}" class="image">
-                                            <img src="/productImages/{{this._id}}0.jpg" alt="Product" style="width: 200px ; height:200px ;"/>
+                                            <img src="/productImages/{{this._id}}0.jpg" alt="Product"
+                                                style="width: 200px ; height:200px ;" />
                                         </a>
                                         <span class="badges">
-                                            <span class="new">New</span>
+                                      
+                                            <span class="new">New</span> 
                                         </span>
+                                    {{#if ../user}}
                                         <div class="actions">
-                                            {{#if user}}
-                                            <a href="" class="action wishlist " title="Wishlist"><i
-                                                    class="icon-heart" onclick="addToWish('{{this._id}}')" ></i></a>{{/if}}
-                                            
+                                            <a href="" id="wishlst" class="action wishlist " title="Wishlist"><i class="icon-heart"
+                                                    onclick="addToWish('{{this._id}}')"></i></a>
                                         </div>
-                                        {{!-- <button title="Add To Cart" class=" add-to-cart">Add To Cart</button> --}}
+                                    {{/if}}
+                                    
                                     </div>
                                     <div class="content">
-                                        <h5 class="title"><a href="/singleProduct-View?id={{this._id}}">{{this.name}}</a></h5>
-                                         <div>
-                                            {{#ifNotEquals this.originalPrice null}} <span class="new"><s>₹{{this.originalPrice}}</s></span>{{/ifNotEquals}}</div>
+                                        <h5 class="title"><a
+                                                href="/singleProduct-View?id={{this._id}}">{{this.name}}</a></h5>
+                                        <div>
+                                            {{#ifNotEquals this.originalPrice null}} <span
+                                                class="new"><s>₹{{this.originalPrice}}</s></span>{{/ifNotEquals}}</div>
                                         <h2 class="price" style="color: black;">₹{{this.price}}</h2>
-                                     
+
                                     </div>
                                 </div>
                             </div>
-                          {{/each}} 
+                            {{/each}}
                         </div>
-                        
+
                     </div>
                     <!-- Shop Bottom Area End -->
                 </div>
@@ -116,12 +121,13 @@
                             <div class="sidebar-widget-category">
                                 <ul>
                                     {{#each category}}
-                                    <li><a href="/Product-View?id={{this._id}}" class="selected">{{this.name}} <span></span> </a></li>
+                                    <li><a href="/Product-View?id={{this._id}}" class="selected">{{this.name}}
+                                            <span></span> </a></li>
                                     {{/each}}
                                 </ul>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -131,20 +137,37 @@
 </section>
 
 <script>
+  
     function addToWish(proId) {
-     console.log('item added to wish')
-    $.ajax({
-        url:'/add-to-wishlist/'+proId,
-        method:'get',
-        success:(response)=>{
-           if (response.status) {
-            let count=$('#wishCount').html()
-            count =parseInt(count)+1
-            $('#wishCount').html(count)
-           }
-        }
-    })
-}  
+        console.log('item added to wish')
+        $.ajax({
+            url: '/add-to-wishlist/' + proId,
+            method: 'get',
+            success: (response) => {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'center',
+                    showConfirmButton: false,
+                    timer: 7000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Added to Wishlist'
+                })
+                if (response.status) {
+                    let count = $('#wishCount').html()
+                    count = parseInt(count) + 1
+                    $('#wishCount').html(count)
+                }
+            }
+        })
+    }
   //var price = document.getElementById("price").innerText
   //console.log("price is ",price)
   //var newPrice = Math.round(price)

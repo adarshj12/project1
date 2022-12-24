@@ -148,34 +148,36 @@
         <div class="col align-self-center">
           <div class="header-actions">
             <div class="header_account_list">
-              <a href="javascript:void(0)" class="header-action-btn search-btn"><i class="icon-magnifier"></i></a>
-              <div class="dropdown_search">
-                <form class="action-form" action="#">
-                  <input class="form-control" placeholder="Enter your search key" type="text">
-                  <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
-                </form>
-              </div>
+              
             </div>
             <!-- Single Wedge Start -->
             <div class="header-bottom-set dropdown">
               <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
                   class="icon-user"></i></button>
               <ul class="dropdown-menu dropdown-menu-right">
-                <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                <li><a class="dropdown-item" href="users/login">Sign in</a></li>
+               {{#if user}}
+                <li><a class="dropdown-item" href="account">My Account</a></li>
+                {{!-- <li><a class="dropdown-item" href="orders">My Orders</a></li> --}}
+                <li><a class="dropdown-item" href="logout">logout</a></li>
+                {{else}}
+                <li><a class="dropdown-item" href="login">Sign in</a></li>
+                {{/if}}
               </ul>
             </div>
-            {{!--
+            
             <!-- Single Wedge End -->
             <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
               <i class="icon-handbag"></i>
-            </a> --}}
-            <a href="/view-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
-              <i class="icon-cart"></i>
-              <span class="header-action-num">01</span>
-              <!-- <span class="cart-amount">€30.00</span> -->
+               <span class="header-action-num" id="cartCount">{{cartCount}}</span>
             </a>
-            <a href="#" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
+             {{#if user}}
+            <a href="/wishlist" class="header-action-btn ">
+           
+              <i class="icon-heart"></i>
+              <span class="header-action-num" id="wishCount">{{wishCount}}</span>
+            </a>
+              {{/if}}
+            <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
               <i class="icon-menu"></i>
             </a>
           </div>
@@ -185,17 +187,17 @@
     </div>
   </div>
   <!-- Header Bottom  End -->
+  
   <!-- Main Menu Start -->
   <div class="bg-black d-none d-lg-block sticky-nav">
     <div class="container position-relative">
       <div class="row">
         <div class="col-md-12 align-self-center">
           <div class="main-menu">
+             
             <ul>
-
-              <li class="dropdown"><a href="home">Home </a>
-
-              </li>
+              
+             <li class="dropdown"><a href="home">Home </a></li>
 
               <li class="dropdown position-static"><a href="#">Shop <i class="ion-ios-arrow-down"></i></a>
                 <ul class="mega-menu d-block">
@@ -227,7 +229,40 @@
   <!-- Main Menu End -->
   </div>
   <!-- Header Area End  -->
+   <!-- OffCanvas Menu Start -->
+    <div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
+        <button class="offcanvas-close"></button>
+        <div class="inner customScroll">
 
+            <div class="offcanvas-menu mb-20px">
+                <ul>
+                  {{#if user}}
+              <li><a href="account"> <em><b>Welcome {{user.name}}</b></em></a>
+                {{/if}}
+                    <li><a href="home"><span class="menu-text">Home</span></a>
+                    </li>
+                
+                    <li><a href="#"><span class="menu-text">Categories</span></a>
+                        <ul class="sub-menu">
+                             {{#each category}}
+                      <li><a href="/Product-View?id={{this._id}}">{{this.name}}</a></li>
+                      {{/each}}
+                         
+                           
+                            
+                        </ul>
+                    </li>
+                   
+                    
+                   
+                </ul>
+            </div>
+            <!-- OffCanvas Menu End -->
+
+           
+        </div>
+    </div>
+    <!-- OffCanvas Menu End -->
 
   {{!-- TO BE PASTED --}}
 

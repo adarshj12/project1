@@ -338,15 +338,15 @@ module.exports = {
         try{
             res.header("Cache-Control", "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0,Pragma, no-cache,Expires, -1"
         );
-        let user = req.session.user._id
-        
+        let user = req.session.user
+        let category = await productHelpers.getAllCategories()
         // console.log(user)
         if (user) {
             let products = await cartHelpers.getCartProducts(req.session.user._id)
             cartCount = await cartHelpers.getCartCount(req.session.user._id)
             if (products.length > 0) {
-                let totalValue = await cartHelpers.getTotalAmount(user)
-                res.render('users/cart', { user, products, totalValue, cartCount })
+                let totalValue = await cartHelpers.getTotalAmount(user._id)
+                res.render('users/cart', { user, products, totalValue, cartCount,category })
             }
             else {
                 res.render('users/emptyCart')
@@ -402,16 +402,17 @@ module.exports = {
         res.header("Cache-Control", "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0,Pragma, no-cache,Expires, -1"
         );
         try {
-            let user = req.session.user._id
+            let user = req.session.user
             let usera = req.session.user
             console.log("asdfghjklfg", user);
-            let total = await cartHelpers.getTotalAmount(user)
+            let total = await cartHelpers.getTotalAmount(user._id)
+            let category = await productHelpers.getAllCategories()
             cartCount = await cartHelpers.getCartCount(req.session.user._id)
-            let user1 = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: ObjectId(user) })
+            let user1 = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: ObjectId(user._id) })
             console.log('agaagsgsdggssgsssgsgsgsgsggssgsgs',user1);
             let address = user1.Address
             
-            res.render('users/checkout', { user, total, user1, cartCount, usera,address })
+            res.render('users/checkout', { user, total, user1, cartCount, usera,address,category })
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -547,7 +548,7 @@ module.exports = {
 
         let newDate = new Date().getDate()
         let visitors = await db.get().collection(collection.PURCHASE_COLLECTION).findOne({ name: 'purchase' + newDate })
-
+        let category = await productHelpers.getAllCategories()
         if (visitors == null || visitors.date != newDate) {
             new db.get().collection(collection.PURCHASE_COLLECTION).insertOne({
                 name: 'purchase' + newDate,
@@ -559,7 +560,7 @@ module.exports = {
                 $inc: { count: 1 }
             })
         }
-        res.render('users/orderPlaced', { user })
+        res.render('users/orderPlaced', { user,category })
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -579,9 +580,10 @@ module.exports = {
     },
     cancelPayment: async (req, res) => {
         try {
-           
+             let user= req.session.user   
+             let category = await productHelpers.getAllCategories()
             await cartHelpers.deletePendingOrder(req.query.id).then(()=>{
-                res.render('users/transaction_failed')
+                res.render('users/transaction_failed',{user,category})
             })
           
         } catch (error) {
@@ -602,10 +604,11 @@ module.exports = {
             let user1 = await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(user._id)})
             console.log(user1);
             let cartCount = await cartHelpers.getCartCount(user._id)
+            let category = await productHelpers.getAllCategories()
             let wishCount = await cartHelpers.getWishCount(user._id)
             let totalValue = await cartHelpers.getTotalAmount(user._id)
             let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
-            res.render('users/accountHome', { user ,coupons,user1,cartCount,wishCount,totalValue,cartProd})
+            res.render('users/accountHome', { user ,coupons,user1,cartCount,wishCount,totalValue,cartProd,category})
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -618,11 +621,12 @@ module.exports = {
             let userId = req.session.user._id
         let user = req.session.user
         let orders = await cartHelpers.getUserOrders(userId)
+        let category = await productHelpers.getAllCategories()
         let cartCount = await cartHelpers.getCartCount(user._id)
             let wishCount = await cartHelpers.getWishCount(user._id)
             let totalValue = await cartHelpers.getTotalAmount(user._id)
             let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
-        res.render('users/myOrders', { user, orders,cartCount,wishCount,totalValue,cartProd })
+        res.render('users/myOrders', { user, orders,cartCount,wishCount,totalValue,cartProd,category })
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -634,12 +638,13 @@ module.exports = {
         let id = req.query.id
         let oId = id
         let products = await cartHelpers.getOrderProducts(id)
+        let category = await productHelpers.getAllCategories()
         let order = await db.get().collection(collection.ORDER_COLLECTION).findOne({ _id: ObjectId(oId) })
         let cartCount = await cartHelpers.getCartCount(user._id)
             let wishCount = await cartHelpers.getWishCount(user._id)
             let totalValue = await cartHelpers.getTotalAmount(user._id)
             let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
-        res.render('users/viewOrderProducts', { user, products, order,cartCount,wishCount,totalValue,cartProd })
+        res.render('users/viewOrderProducts', { user, products, order,cartCount,wishCount,totalValue,cartProd,category })
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -654,12 +659,13 @@ module.exports = {
         let user1 = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: ObjectId(user._id) })
         // console.log("/////////////////////////////////////////////////////////////////////////////////////////////////////////////",user1,"/////////////////////////////////////////////////////////////////////////////////////////////////////////////");
         // let address= user.Address
+        let category = await productHelpers.getAllCategories()
         let address= user1.Address
         let cartCount = await cartHelpers.getCartCount(user._id)
             let wishCount = await cartHelpers.getWishCount(user._id)
             let totalValue = await cartHelpers.getTotalAmount(user._id)
             let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
-        res.render('users/userProfile', { user,address,cartCount,wishCount,totalValue,cartProd})
+        res.render('users/userProfile', { user,address,cartCount,wishCount,totalValue,cartProd,category})
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -687,11 +693,12 @@ module.exports = {
         try {
             let userdetails = req.session.user
         // console.log(req.session.user);
+         let category = await productHelpers.getAllCategories()
         let cartCount = await cartHelpers.getCartCount(user._id)
             let wishCount = await cartHelpers.getWishCount(user._id)
             let totalValue = await cartHelpers.getTotalAmount(user._id)
             let cartProd = await cartHelpers.getCartProducts(req.session.user._id)
-        res.render('users/updateProfile', { userdetails,cartCount,wishCount,totalValue,cartProd })
+        res.render('users/updateProfile', { userdetails,cartCount,wishCount,totalValue,cartProd,category })
         } catch (error) {
             console.log(error);
             res.render('users/404')
@@ -704,6 +711,7 @@ module.exports = {
             let user = req.session.user
         let aid = req.query.id
         console.log(user._id, aid);
+        let category = await productHelpers.getAllCategories()
         let cartCount = await cartHelpers.getCartCount(user._id)
             let wishCount = await cartHelpers.getWishCount(user._id)
             let totalValue = await cartHelpers.getTotalAmount(user._id)
@@ -711,7 +719,7 @@ module.exports = {
         userHelpers.getAddress(user._id, aid).then((address) => {
             console.log(address);
             
-            res.render('users/editAddress', { user, address,cartCount,wishCount,totalValue,cartProd })
+            res.render('users/editAddress', { user, address,cartCount,wishCount,totalValue,cartProd,category })
         })
         } catch (error) {
             console.log(error);
@@ -871,6 +879,7 @@ module.exports = {
             let user = req.session.user
         let totalValue = null
         let cartProd = null
+        let category = await productHelpers.getAllCategories()
         if (user) {
             let u = await db.get().collection(collection.WISHLIST_COLLECTION).findOne({user:ObjectId(user._id)})
             totalValue = await cartHelpers.getTotalAmount(user._id)
@@ -879,17 +888,17 @@ module.exports = {
             if(u){
                 let products = await cartHelpers.getWishProducts(user._id)
             console.log('wishst products', products);
-            let pro = products[0].output
-            console.log(products[0].output);
+            let pro = products[0]?.output
+            console.log(products[0]?.output);
             wishCount = await cartHelpers.getWishCount(user._id)
             if (products.length > 0) {
-                res.render('users/wishlist', { user, pro, wishCount,cartProd,totalValue,cartCount })
+                res.render('users/wishlist', { user, pro, wishCount,cartProd,totalValue,cartCount,category })
             }
             else {
-                res.render('users/emptyWish')
+                res.render('users/emptyWish',{ user, pro, wishCount,cartProd,totalValue,cartCount,category })
             }
             }else{
-                res.render('users/emptyWish')
+                res.render('users/emptyWish',{ user, pro, wishCount,cartProd,totalValue,cartCount,category })
             }
 
         } else {
