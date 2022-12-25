@@ -150,9 +150,9 @@
                                                                     onclick="returnProd('{{this.product._id}}','{{this.quantity}}','{{this._id}}')"><b>Return</b></a>
                                                                 {{/ifEquals}}
                                                                 {{#ifEquals this.status 'canceled'}}
-                                                                {{#ifNotEquals this.paymentMethod "cod"}}
+                                                                {{!-- {{#ifNotEquals this.paymentMethod "cod"}}
                                                                 <a href=""><b>Refunded</b></a>
-                                                                {{/ifNotEquals}}
+                                                                {{/ifNotEquals}} --}}
                                                                 {{/ifEquals}}
                                                                 {{#ifReq this.status order.paymentMethod 'canceled' 'razorpay' }}
                                                                 <a href=""><b>Refunded</b></a>

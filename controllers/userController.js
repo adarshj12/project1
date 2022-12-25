@@ -657,8 +657,7 @@ module.exports = {
         try {
             let user = req.session.user
         let user1 = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: ObjectId(user._id) })
-        // console.log("/////////////////////////////////////////////////////////////////////////////////////////////////////////////",user1,"/////////////////////////////////////////////////////////////////////////////////////////////////////////////");
-        // let address= user.Address
+        
         let category = await productHelpers.getAllCategories()
         let address= user1.Address
         let cartCount = await cartHelpers.getCartCount(user._id)
