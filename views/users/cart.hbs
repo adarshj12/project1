@@ -131,7 +131,7 @@
         success:(response)=>{
             if(response.removeProduct){
                  alert('item removed from cart')
-                 location.reload()
+               //  location.reload()
             }else{
                 console.log(response)
                 document.getElementById(proId).innerHTML=(quantity+count)

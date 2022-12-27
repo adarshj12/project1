@@ -363,10 +363,11 @@ module.exports = {
     },
     changeProductQuantity: (req, res, next) => {
         try {
+            console.log(req.body.user);
             let user = req.session.user._id
         cartHelpers.changeProductQuantity(req.body).then(async (response) => {
             console.log(response);
-            response.total = await cartHelpers.getTotalAmount(req.body.user)
+            response.total = await cartHelpers.getTotalAmount(req.body.user._id)
             res.json(response)
         })
         } catch (error) {
