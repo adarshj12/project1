@@ -343,13 +343,15 @@ module.exports = {
         // console.log(user)
         if (user) {
             let products = await cartHelpers.getCartProducts(req.session.user._id)
-            cartCount = await cartHelpers.getCartCount(req.session.user._id)
+            let cartCount = await cartHelpers.getCartCount(req.session.user._id)
+            let wishCount = await cartHelpers.getWishCount(user._id)
+            let totalValue = null
             if (products.length > 0) {
-                let totalValue = await cartHelpers.getTotalAmount(user._id)
-                res.render('users/cart', { user, products, totalValue, cartCount,category })
+               totalValue = await cartHelpers.getTotalAmount(user._id)
+                res.render('users/cart', { user, products, totalValue, cartCount,category,wishCount })
             }
             else {
-                res.render('users/emptyCart')
+                res.render('users/emptyCart',{ user, products, totalValue, cartCount,category,wishCount })
             }
 
         } else {
