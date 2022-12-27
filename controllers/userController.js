@@ -3,13 +3,13 @@ const db = require('../config/connection')
 const userHelpers = require('../helpers/user-helpers');
 const productHelpers = require('../helpers/userdetails-helpers');
 const cartHelpers = require('../helpers/cart-helpers')
-// const otp = require('../helpers/OTPhelpers');
+const otp = require('../helpers/OTPhelpers');
 const { ObjectId } = require('mongodb');
 // const { use } = require('./admin');
 const collection = require('../config/collections')
 const userdetailsHelpers = require('../helpers/userdetails-helpers');
 const orderHelpers = require('../helpers/order-helpers')
-// const client = require('twilio')(otp.accoundSid, otp.authToken);
+const client = require('twilio')(otp.accoundSid, otp.authToken);
 // const client = require('twilio')(process.env.accoundSid, process.env.authToken);
 var easyinvoice = require('easyinvoice');
 const { response } = require('express');
@@ -148,50 +148,50 @@ module.exports = {
             res.render('users/404')
         }
     },
-    // otpLogin: async (req, res) => {
-    //     console.log('hhhhhhhhhhhhhhhhhhhhhhh');
-    //     client
-    //     .verify
-    //     // .services(otp.serviceId)
-    //     .services(process.env.serviceId)
-    //     .verifications
-    //     .create({
-    //         to: `+${req.query.phoneNumber}`,
-    //         channel: req.query.channel,
-    //     })
-    //     .then((data) => {
-    //         console.log(data);
-    //         res.status(200).send(data)
-    //     })
-    // },
-    // otpVerify: (req, res) => {
+    otpLogin: async (req, res) => {
+        console.log('hhhhhhhhhhhhhhhhhhhhhhh');
+        client
+        .verify
+        .services(otp.serviceId)
+        // .services(process.env.serviceId)
+        .verifications
+        .create({
+            to: `+${req.query.phoneNumber}`,
+            channel: req.query.channel,
+        })
+        .then((data) => {
+            console.log(data);
+            res.status(200).send(data)
+        })
+    },
+    otpVerify: (req, res) => {
 
-    //     client
-    //         .verify
-    //         // .services(otp.serviceId)
-    //         .services(process.env.serviceId)
-    //         .verificationChecks
-    //         .create({
-    //             to: `+${req.query.phoneNumber}`,
-    //             code: req.query.code
-    //         })
-    //         .then(async (data) => {
-    //             console.log(data);
-    //             if (data.valid) {
-    //                 let Number = data.to.slice(3);
-    //                 let userData = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile: Number });
-    //                 if (userData?.mobile == Number) {
-    //                     req.session.user = userData;
-    //                     res.send({ value: 'success' })
-    //                 } else {
-    //                     res.send({ value: 'failed' })
-    //                 }
+        client
+            .verify
+            .services(otp.serviceId)
+            // .services(process.env.serviceId)
+            .verificationChecks
+            .create({
+                to: `+${req.query.phoneNumber}`,
+                code: req.query.code
+            })
+            .then(async (data) => {
+                console.log(data);
+                if (data.valid) {
+                    let Number = data.to.slice(3);
+                    let userData = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile: Number });
+                    if (userData?.mobile == Number) {
+                        req.session.user = userData;
+                        res.send({ value: 'success' })
+                    } else {
+                        res.send({ value: 'failed' })
+                    }
 
-    //             } else {
-    //                 res.send({ value: 'failed' })
-    //             }
-    //         })
-    // },
+                } else {
+                    res.send({ value: 'failed' })
+                }
+            })
+    },
     logout: (req, res) => {
         res.header("Cache-Control", "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0,Pragma, no-cache,Expires, -1"
         );
@@ -228,7 +228,7 @@ module.exports = {
         let categoryDetails = await userdetailsHelpers.getCategoryDetails(id)
         //console.log(categoryDetails);
         let products = await db.get().collection(collection.PRODUCT_COLLECTION).find({ category: categoryDetails.name }).toArray()
-        // console.log(products)
+        console.log(products)
         res.render('users/userProductView', { user, products, cartCount, category, wishCount,totalValue, cartProd })
         }catch(err){
             console.log(err);

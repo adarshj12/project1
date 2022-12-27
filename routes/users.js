@@ -140,9 +140,9 @@ router.get('/otp_page', (req, res) => {
 })
 
 
-// router.get('/otp_verify', userController.otpVerify),
+router.get('/otp_verify', userController.otpVerify),
 
-//  router.get('/otp_login', userController.otpLogin),
+ router.get('/otp_login', userController.otpLogin),
 
 
 

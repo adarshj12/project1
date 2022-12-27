@@ -18,19 +18,15 @@
                                             {{#if loginError}}
                                             <p class="error" id="loginerr"  style="color: red;">{{loginError}}</p>
                                             {{/if}}
-                                            {{#if userblockedErr}}
-                                            <p class="error" id="blockedUser"   style="color: red;">{{userblockedErr}}</p>
-                                            {{/if}}
-
                                             <input type="text" name="email"   placeholder="email" />
                                             <input type="password" name="password"    placeholder="Password" />
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
                                                     <a href="/signup">Create New Account</a>
                                                 </div>
-                                                {{!-- <div class="login-toggle-btn">
+                                                <div class="login-toggle-btn">
                                                     <a href="/otp_page">Login With OTP</a>
-                                                </div> --}}
+                                                </div>
                                                 <button type="submit"><span>Login</span></button>
                                             </div>
                                         </form>

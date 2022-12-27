@@ -194,7 +194,7 @@ module.exports = {
     let productPricee=parseInt(product.price);
     product.price=productPricee;
 
-    let offerPrice=(offerPercentage/100)*product.price;
+    let offerPrice=parseInt((offerPercentage/100)*product.price);
     let totalPrice=product.price-offerPrice;
     totalPrice = Math.round(totalPrice)
     return new Promise((resolve,reject)=>{
