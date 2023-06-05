@@ -47,7 +47,7 @@ router.post('/login', userController.loginPage)
 
 router.get('/logout', userController.logout)
 
-
+router.get('/undefined',userController.undefined)
 
 
 

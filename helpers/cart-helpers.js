@@ -6,8 +6,8 @@ const userdetailsHelpers=require('../helpers/userdetails-helpers')
 const ObjectId = require('mongodb').ObjectId
 const Razorpay = require('razorpay');
 var instance = new Razorpay({
-    key_id: 'rzp_test_SAoS01ofs5FSMP',
-    key_secret: '0WWVmfnoMinLNUfM2isjlMq5',
+    key_id: 'rzp_test_lAB3d9vBuWE8JR',
+    key_secret: 'fCycgzvxJHEwsHhwsLaUiC0J',
 });
 const CC = require("currency-converter-lt");
 const paypal = require('paypal-rest-sdk');
@@ -468,7 +468,7 @@ module.exports = {
     verifyPayment: (details) => {
         return new Promise((resolve, reject) => {
             const crypto = require("crypto");
-            let hmac = crypto.createHmac('sha256', '0WWVmfnoMinLNUfM2isjlMq5')
+            let hmac = crypto.createHmac('sha256', 'fCycgzvxJHEwsHhwsLaUiC0J')
             hmac.update(details['payment[razorpay_order_id]']+'|'+details['payment[razorpay_payment_id]'])
             hmac=hmac.digest('hex')
             if(hmac==details['payment[razorpay_signature]']){

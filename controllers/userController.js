@@ -1,5 +1,5 @@
 const db = require('../config/connection')
-
+require('dotenv').config()
 const userHelpers = require('../helpers/user-helpers');
 const productHelpers = require('../helpers/userdetails-helpers');
 const cartHelpers = require('../helpers/cart-helpers')
@@ -8,8 +8,8 @@ const { ObjectId } = require('mongodb');
 const collection = require('../config/collections')
 const userdetailsHelpers = require('../helpers/userdetails-helpers');
 const orderHelpers = require('../helpers/order-helpers')
-const client = require('twilio')(otp.accoundSid, otp.authToken);
-// const client = require('twilio')(process.env.accoundSid, process.env.authToken);
+// const client = require('twilio')(otp.accoundSid, otp.authToken);
+const client = require('twilio')(process.env.accoundSid, process.env.authToken);
 var easyinvoice = require('easyinvoice');
 const { response } = require('express');
 
@@ -151,8 +151,8 @@ module.exports = {
         console.log('hhhhhhhhhhhhhhhhhhhhhhh');
         client
         .verify
-        .services(otp.serviceId)
-        // .services(process.env.serviceId)
+        // .services(otp.serviceId)
+        .services(process.env.serviceId)
         .verifications
         .create({
             to: `+${req.query.phoneNumber}`,
@@ -167,8 +167,8 @@ module.exports = {
 
         client
             .verify
-            .services(otp.serviceId)
-            // .services(process.env.serviceId)
+            // .services(otp.serviceId)
+            .services(process.env.serviceId)
             .verificationChecks
             .create({
                 to: `+${req.query.phoneNumber}`,
@@ -199,6 +199,16 @@ module.exports = {
         req.session.loggedIn = false
         // res.redirect('/');
         res.redirect(req.session.returnTo);
+        } catch (error) {
+            console.log(error);
+            res.render('users/404')
+        }
+    },
+    undefined:(req,res)=>{
+        res.header("Cache-Control", "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0,Pragma, no-cache,Expires, -1"
+        );
+        try {
+            res.redirect('/');
         } catch (error) {
             console.log(error);
             res.render('users/404')

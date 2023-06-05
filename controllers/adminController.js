@@ -58,11 +58,11 @@ module.exports = {
             let date = new Date()
             let Year = date.getFullYear()
             let Month = date.getMonth()
-            let mon = Year + '-' + Month
+            let mon = Year + '-' + parseInt(Month+1)
             console.log(mon);
             let mG = await orderHelpers.getCurrentMonthSalesReport(mon)
-            let revMon = mG[0].totalAmount
-            console.log(mG, mG[0].totalAmount);
+            let revMon = mG[0]?.totalAmount
+            console.log(mG, mG[0]?.totalAmount);
 
             res.render('admin/adminHome', { layout: 'adminLayout', userDetail, rev, pro, cat, revMon, Month })
 
